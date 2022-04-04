@@ -1,0 +1,15 @@
+Categorias:
+
+Bicycle:
+	Bicycle Standard
+	Bicycle Natural Disasters Volcano
+	Bicycle Bourbon
+
+Fontaine:
+	Fontaine Pink Panther
+	Fontaine Broccoli
+	Fontaine Chocolate
+
+Virtuoso:
+	Virtuoso SS15
+	Virtuoso P1
