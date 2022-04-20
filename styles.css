@@ -1,46 +1,55 @@
 body{
     background-color: #181616;
-    color: dimgray;
+    color: rgb(105, 105, 105);
+    font-size: 1.2vw;
 }
 
 p{
     margin: 2vh 7vw;
     text-indent: 1vw;
+    text-align: justify;
 }
 
 a.menu{
-    border: 2px solid;
+    color: #fffaf0;
+    font-size: 1.3vw;
+    border: 0.5vmin solid;
     border-color: #676767b3;
     border-radius: 5px;
-    padding: 8px 6.56vw;
-    height: 20px;
-    width: 50vw;
-    color: #fffaf0;
+    padding: 8px 4.75vw;
+    text-decoration: none;
+}
+
+a:hover.menu{
+    color: #FFD369;
+}
+
+#menu{
+    text-align: center;
 }
 
 a.home{
     color: #FFD369;
-    font-size: x-large;
+    font-size: 1.75vw;
 }
 
 h1{
     color: #FFD369;
-    font-size: xx-large;
+    font-size: 2vw;
     text-align: center;
 }
 
 h2{
     color: #FFD369;
-    font-size: x-large;
+    font-size: 1.75vw;
     margin-left: 7vw;
 }
 
 .title{
     color: #EEEEEE;
-    font-size: xx-large;
+    font-size: 2vw;
     font-style: normal;
     text-decoration: none;
-    text-align: center;
 }
 
 hr{
@@ -71,7 +80,7 @@ input+input {
     float: right;
 }
 
-.center{
+#center{
     text-align: center;
 }
 
@@ -89,5 +98,27 @@ button{
     padding: 2px 4vw;
     position: absolute;
     left: 44.2%;
+}
+
+img.product{
+    margin: 0 7vw;
+    height: 20vw;
+}
+
+.column {
+    float: left;
+    width: 30%;
+    padding: 5px;
+}
+  
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+p.label{
+    text-align: center;
+    margin: 0 4vw 0 7.8vw;
 }
 
