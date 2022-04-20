@@ -10,12 +10,12 @@ p{
 
 a.menu{
     border: 2px solid;
-    border-color: #696969b3;
+    border-color: #676767b3;
     border-radius: 5px;
     padding: 8px 6.56vw;
     height: 20px;
     width: 50vw;
-    color: floralwhite;
+    color: #fffaf0;
 }
 
 a.home{
@@ -44,7 +44,7 @@ h2{
 }
 
 hr{
-    border: 2px solid #696969ab;
+    border: 2px solid #676767ab;
 }
 
 form {
@@ -76,11 +76,11 @@ input+input {
 }
 
 input{
-    background-color: #69696916;
+    background-color: #67676716;
 }
 
 button{
-    background-color: #696969ab;
+    background-color: #676767ab;
     font-size: large;
     color: #1b1b1be0;
     border-style: none;
