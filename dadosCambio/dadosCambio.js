@@ -11,6 +11,51 @@ request.onload = function() {
 
 }
 
+var dados = [ ['dataHoraCotacao', 'cotacaoVenda'] ]
+var options = {
+
+    title: 'Cotação de venda',
+    legend: { position: 'bottom' }
+  
+}
+
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function strToDate(valor) {
+
+    let dt=valor.split("/");
+    return new Date(dt[1]+'/'+dt[0]+'/'+dt[2]);			
+
+}
+
+function drawChart() {
+
+    var chart = new google.visualization.LineChart(document.getElementById('grafico'));
+    var request = new XMLHttpRequest();
+        
+    request.open('GET', requestURL);
+    request.responseType = 'json';
+    request.send();
+    request.onload = function() {			
+
+        let dadosJson =  request.response.value;
+        for (k=0; k<dadosJson.length; k++) {
+
+            dados.push( [
+                strToDate(dadosJson[k].dataHoraCotacao),
+                parseInt(dadosJson[k].cotacaoVenda)
+            ]);
+
+        }
+
+        var dadosGC = google.visualization.arrayToDataTable(dados);					
+        chart.draw(dadosGC, options);
+
+    }
+
+}
+
 function mostrarTabela (v) {
 
     let tabela = document.getElementById('tabela')
