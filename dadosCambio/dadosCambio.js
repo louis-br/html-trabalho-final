@@ -22,13 +22,6 @@ var options = {
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 
-function strToDate(valor) {
-
-    let dt=valor.split("/");
-    return new Date(dt[1]+'/'+dt[0]+'/'+dt[2]);			
-
-}
-
 function drawChart() {
 
     var chart = new google.visualization.LineChart(document.getElementById('grafico'));
@@ -43,8 +36,8 @@ function drawChart() {
         for (k=0; k<dadosJson.length; k++) {
 
             dados.push( [
-                strToDate(dadosJson[k].dataHoraCotacao),
-                parseInt(dadosJson[k].cotacaoVenda)
+                dadosJson[k].dataHoraCotacao,
+                parseFloat(dadosJson[k].cotacaoVenda)
             ]);
 
         }
