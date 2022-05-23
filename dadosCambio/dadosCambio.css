@@ -1,0 +1,136 @@
+body {
+    background-color: #181616;
+    color: rgb(105, 105, 105);
+    font-size: 1.2vw;
+}
+
+p {
+    margin: 2vh 7vw;
+    text-indent: 1vw;
+    text-align: justify;
+}
+
+a.menu {
+    color: #fffaf0;
+    font-size: 1.3vw;
+    border: 0.5vmin solid;
+    border-color: #676767b3;
+    border-radius: 5px;
+    padding: 8px 4.75vw;
+    text-decoration: none;
+}
+
+a:hover.menu {
+    color: #FFD369;
+}
+
+#menu {
+    text-align: center;
+}
+
+#main {
+    text-align: center;
+    display: block;
+    padding: 10%;
+    padding-top: 5%;
+}
+
+#grafico {
+    width: 50%;
+    height: 50%;
+}
+
+a.home {
+    color: #FFD369;
+    font-size: 1.75vw;
+}
+
+h1 {
+    color: #FFD369;
+    font-size: 2vw;
+    text-align: center;
+}
+
+h2 {
+    color: #FFD369;
+    font-size: 1.75vw;
+    margin-left: 7vw;
+}
+
+.title {
+    color: #EEEEEE;
+    font-size: 2vw;
+    font-style: normal;
+    text-decoration: none;
+}
+
+hr {
+    border: 2px solid #676767ab;
+}
+
+form {
+    width: 80%;
+    margin: 0 auto;
+}
+
+label, input {
+    display: inline-block;
+    border-radius: 5px;
+}
+
+label {
+    width: 32%;
+    text-align: right;
+}
+
+label+input {
+    width: 30%;
+    margin: 2px 30% 0 2%;
+}
+
+input+input {
+    float: right;
+}
+
+#center {
+    text-align: center;
+}
+
+input {
+    background-color: #67676716;
+    color: floralwhite;
+}
+
+button {
+    background-color: #676767ab;
+    font-size: large;
+    color: #1b1b1be0;
+    border-style: none;
+    border-radius: 3px;
+    padding: 2px 4vw;
+    position: absolute;
+    left: 44.2%;
+}
+
+img.product {
+    margin: 0 7vw;
+    height: 20vw;
+}
+
+.column {
+    float: left;
+    width: 30%;
+    padding: 5px;
+}
+  
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+p.label {
+    text-align: center;
+    margin: 0 4vw 0 7.8vw;
+}
+
