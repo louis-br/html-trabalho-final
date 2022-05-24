@@ -1,6 +1,5 @@
 var requestURL = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaPeriodo(moeda=@moeda,dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@moeda='EUR'&@dataInicial='04-07-2021'&@dataFinalCotacao='07-20-2021'&$top=10000&$skip=0&$format=json&$select=cotacaoVenda,dataHoraCotacao"
 
-
 var dados = [ ['dataHoraCotacao', 'cotacaoVenda'] ]
 var options = {
 
@@ -24,7 +23,7 @@ function atualizarURL() {
 
     var request = new XMLHttpRequest()
 
-    request.open('GET', requestURL)
+    request.open('GET', url)
     request.responseType = 'json'
     request.send()
     request.onload = function() {
@@ -70,6 +69,7 @@ function mostrarTabela (v) {
     for (k = 0; k < v.value.length; k++) {
 
         let tr = document.createElement('tr')
+        tr.setAttribute("id","linhaTabela")
         tabela.appendChild(tr)
         let td = document.createElement('td')
         td.innerText = v.value[k].dataHoraCotacao
