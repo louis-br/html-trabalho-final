@@ -1,15 +1,5 @@
 var requestURL = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaPeriodo(moeda=@moeda,dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@moeda='EUR'&@dataInicial='04-07-2021'&@dataFinalCotacao='07-20-2021'&$top=10000&$skip=0&$format=json&$select=cotacaoVenda,dataHoraCotacao"
-var request = new XMLHttpRequest()
 
-request.open('GET', requestURL)
-request.responseType = 'json'
-request.send()
-request.onload = function() {
-
-    console.log(request.response)
-    mostrarTabela(request.response)
-
-}
 
 var dados = [ ['dataHoraCotacao', 'cotacaoVenda'] ]
 var options = {
@@ -21,6 +11,30 @@ var options = {
 
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
+
+
+function atualizarURL() {
+
+    var moeda = document.getElementById('moeda').value.toString()
+    var dataInicial = document.getElementById('dataInicial').value.toString()
+    var dataFinalCotacao = document.getElementById('dataFinalCotacao').value.toString()
+    var url = `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaPeriodo(moeda=@moeda,dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@moeda='${moeda}'&@dataInicial='${dataInicial}'&@dataFinalCotacao='${dataFinalCotacao}'&$top=10000&$skip=0&$format=json&$select=cotacaoVenda,dataHoraCotacao`
+    
+    console.log(url)
+
+    var request = new XMLHttpRequest()
+
+    request.open('GET', requestURL)
+    request.responseType = 'json'
+    request.send()
+    request.onload = function() {
+
+        console.log(request.response)
+        mostrarTabela(request.response)
+
+    }
+
+}
 
 function drawChart() {
 
