@@ -19,28 +19,27 @@
         </div>
 
         <div name="recursos" id="recursos">
-            <label for="moeda">Moeda:</label>
-            <input list="moedasLista" name="moeda" id="moeda" placeholder="Informe a moeda" required><br>
-            <datalist id="moedasLista">
-                <option value="EUR">Euro</option>
-                <option value="GBP">Libra Esterlina</option>
-                <option value="USD">Dólar Americano</option>
-            </datalist>
+            <label for="moeda">Moedas:</label><br>
+            <input type="checkbox" name="moeda" id="moeda" class="moedas" value="EUR" placeholder="Informe quais moedas" required> Euro <br>
+            <input type="checkbox" name="moeda" id="moeda" class="moedas" value="GBP" placeholder="Informe quais moedas" required> Libra Esterlina <br>
+            <input type="checkbox" name="moeda" id="moeda" class="moedas" value="USD" placeholder="Informe quais moedas" required> Dólar Americano <br>
             <label for="dataInicial">Data inicial:</label>
-            <input type="text" name="dataInicial" id="dataInicial" placeholder="Informe a data inicial" required><br>
+            <input type="text" name="dataInicial" id="dataInicial" placeholder="01/01/2001" required><br>
             <label for="dataFinalCotacao">Data final:</label>
-            <input type="text" name="dataFinalCotacao" id="dataFinalCotacao" placeholder="Informe a data final" required><br>
+            <input type="text" name="dataFinalCotacao" id="dataFinalCotacao" placeholder="02/02/2001" required><br>
             <br>
             <button onclick="atualizarURL()"><b>Enviar</b></button>
+            <br>
+            <br>
+            <button onclick="limparTabela()"><b>Limpar</b></button>
         </div>
 
         <div id="main" name="main">
 
             <table border=1 id="tabela">
-                <tr>
-                    <th>Data e hora</th>
-                    <th>Cotação venda</th>
-                </tr>
+            <tbody id="tBody">
+
+            </tbody>
             </table>
 
             <div id="grafico"></div>
