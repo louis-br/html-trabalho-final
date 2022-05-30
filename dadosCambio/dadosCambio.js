@@ -10,7 +10,6 @@ var options = {
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 
-
 function makeRequest(url, k, r, m, moeda)
 {
     var request = new XMLHttpRequest()
@@ -43,7 +42,6 @@ function atualizarURL() {
     var dataInicial = document.getElementById('dataInicial').value.toString()
     var dataFinalCotacao = document.getElementById('dataFinalCotacao').value.toString()
     
-
     for( var i = 0; i < checkboxs.length; i++)
     {
         if(checkboxs[i].checked)
@@ -117,7 +115,6 @@ function drawChart(v, m) {
 function mostrarTabela (v, m) {
 
     let tabela = document.getElementById('tBody')
-
 
     let tr = document.createElement('tr')
     tr.setAttribute("id","linhaTabela")

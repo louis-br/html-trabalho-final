@@ -36,9 +36,25 @@ a:hover.menu {
 }
 
 #grafico {
-    width: 70%;
-    height: 70%;
+    width: 68%;
+    height: 68%;
     float: right;
+}
+
+
+
+#campoMoedas {
+    padding-left: 650px;
+}
+
+a {
+    color: #676767ab;
+}
+
+#outrosCampos {
+
+    padding-left: 500px;
+
 }
 
 table {

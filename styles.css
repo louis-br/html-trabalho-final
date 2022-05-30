@@ -89,6 +89,12 @@ input {
     color: floralwhite;
 }
 
+.botaoMenuAdmin {
+
+    position: inherit;
+
+}
+
 button {
     background-color: #676767ab;
     font-size: large;

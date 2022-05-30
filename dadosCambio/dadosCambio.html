@@ -20,9 +20,11 @@
 
         <div name="recursos" id="recursos">
             <label for="moeda">Moedas:</label><br>
+            <div id="campoMoedas">
             <input type="checkbox" name="moeda" id="moeda" class="moedas" value="EUR" placeholder="Informe quais moedas" required> Euro <br>
             <input type="checkbox" name="moeda" id="moeda" class="moedas" value="GBP" placeholder="Informe quais moedas" required> Libra Esterlina <br>
             <input type="checkbox" name="moeda" id="moeda" class="moedas" value="USD" placeholder="Informe quais moedas" required> Dólar Americano <br>
+            </div>
             <label for="dataInicial">Data inicial:</label>
             <input type="text" name="dataInicial" id="dataInicial" placeholder="01/01/2001" required><br>
             <label for="dataFinalCotacao">Data final:</label>
@@ -32,6 +34,11 @@
             <br>
             <br>
             <button onclick="limparTabela()"><b>Limpar</b></button>
+        </div>
+
+        <div id="outrosCampos">
+            <a href="">Sobre</a>
+            <a href="">Ajuda</a>
         </div>
 
         <div id="main" name="main">
