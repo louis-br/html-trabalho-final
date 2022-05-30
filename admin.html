@@ -22,29 +22,30 @@
         <br><br>
         
         <h1>Administração</h1>
-        <div id="menuAdmin" name="menuAdmin]">
-            <button id="listar" name="listar" class="botaoMenuAdmin" onclick="listarCategorias()">Listar Categorias</button>
-            <br>
-            <button id="incluirCategoria" name="incluirCategoria" class="botaoMenuAdmin" onclick="incluirCategoria()">Incluir Categoria</button>
-            <input type="text" name="nomeCategoriaIncluir" id="nomeCategoriaIncluir" placeholder="*Nome da categoria a ser incluída*">
-            <br>
-            <button id="excluirCategoria" name="excluirCategoria" class="botaoMenuAdmin" onclick="excluirCategoria()">Excluir Categoria</button>
-            <input type="number" name="idCategoriaExcluir" id="idCategoriaExcluir" placeholder="*ID da categoria a ser excluída*">
-            <br>
-            <button id="alterarCategoria" name="alterarCategoria" class="alterarCategoria" onclick="alterarCategoria()">Alterar Categoria</button>
-            <input type="number" name="idCategoriaAlterar" id="idCategoriaAlterar" placeholder="*ID da categoria a ser alterada*">
-            <input type="text" name="nomeCategoriaAlterar" id="nomeCategoriaAlterar" placeholder="*Nome da categoria a ser alterada">
-        </div>
+        <div id="menuAdmin" name="menuAdmin">
+            <div id="menuCategorias" name="menuCategorias">
+                <button id="listar" name="listar" class="botaoMenuAdmin" onclick="listarCategorias()">Listar Categorias</button>
+                <br><br>
+                <button id="incluirCategoria" name="incluirCategoria" class="botaoMenuAdmin" onclick="incluirCategoria()">Incluir Categoria</button>
+                <input type="text" name="nomeCategoriaIncluir" id="nomeCategoriaIncluir" placeholder="*Nome*" class="inputCategorias">
+                <br>
+                <button id="excluirCategoria" name="excluirCategoria" class="botaoMenuAdmin" onclick="excluirCategoria()">Excluir Categoria</button>
+                <input type="number" name="idCategoriaExcluir" id="idCategoriaExcluir" placeholder="*ID*" class="inputCategorias" >
+                <br>
+                <div id="alterarCategoriaContainer" name="alterarCategoriaContainer">
+                    <button id="alterarCategoria" name="alterarCategoria" class="alterarCategoria" onclick="alterarCategoria()">Alterar Categoria</button>
+                    <input type="number" name="idCategoriaAlterar" id="idCategoriaAlterar" placeholder="*ID*" class="inputCategorias">
+                    <input type="text" name="nomeCategoriaAlterar" id="nomeCategoriaAlterar" placeholder="*Novo nome" class="inputCategorias>
+                </div>
+            </div>
+            <div id="menuProdutos" name="menuProdutos">
 
-        <table id="categorias" name = "categorias"></table>
-        <br><br><br>
+            </div>
+            <table id="categorias" name = "categorias"></table>
+        </div>
 
         <!--BODY_END-->
         <!--FOOTER-->
-        <hr>
-        <p>
-            <a href="index.html" class="home"> Home</a>
-        </p>
         <!--FOOTER_END-->
     </body>
 </html>

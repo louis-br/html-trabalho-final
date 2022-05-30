@@ -91,7 +91,50 @@ input {
 
 .botaoMenuAdmin {
 
-    position: inherit;
+    position: static;
+    margin-top: 1%;
+    margin-left: 0%;
+    width: 20%;
+
+}
+
+.inputCategorias {
+
+    margin: 1%;
+
+}
+
+#alterarCategoria {
+
+    position: static;
+    width: 20%;
+
+}
+
+#menuAdmin {
+
+    width: 100%;
+    height: 100%;
+
+}
+
+
+#nomeCategoriaAlterar {
+
+    display: inline;
+    float: initial;
+
+}
+
+#alterarCategoria {
+
+    display: inline;
+
+}
+
+#idCategoriaAlterar {
+
+    display: inline;
 
 }
 
