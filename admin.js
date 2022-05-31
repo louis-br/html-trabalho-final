@@ -2,7 +2,7 @@ var requestCategoriasURL = 'http://loja.buiar.com/?key=8t4b2j&c=categoria&t=list
 
 var requestCategorias = new XMLHttpRequest()
 
-    requestCategorias.open('GET', requestCategoriasURL)
+    requestCategorias.open('POST', requestCategoriasURL)
     requestCategorias.responseType = 'json'
     requestCategorias.send()
     requestCategorias.onload = function () { carregarListaCategorias() }
@@ -143,7 +143,7 @@ function criarRequest (url, nome) {
 
     var request = new XMLHttpRequest()
 
-    request.open('GET', url)
+    request.open('POST', url)
     request.responseType = 'json'
     request.onreadystatechange = function () {
 
