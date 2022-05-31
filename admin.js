@@ -1,4 +1,13 @@
-function limparTabela(tipo) {
+var requestCategoriasURL = 'http://loja.buiar.com/?key=8t4b2j&c=categoria&t=listar&f=json'
+
+var requestCategorias = new XMLHttpRequest()
+
+    requestCategorias.open('GET', requestCategoriasURL)
+    requestCategorias.responseType = 'json'
+    requestCategorias.send()
+    requestCategorias.onload = function () { carregarListaCategorias() }
+
+function limparTabela (tipo) {
 
     let tabela = document.getElementById(tipo)
 
@@ -6,12 +15,28 @@ function limparTabela(tipo) {
 
 }
 
-function limparCampos() {
+function limparCampos () {
 
     document.getElementById('nomeCategoriaIncluir').value = ""
     document.getElementById('idCategoriaExcluir').value = ""
     document.getElementById('idCategoriaAlterar').value = ""
     document.getElementById('nomeCategoriaAlterar').value = ""
+    document.getElementById('idProduto').value = ""
+    document.getElementById('nomeProduto').value = ""
+    document.getElementById('codigoProduto').value = ""
+    document.getElementById('descricaoProduto').value = ""
+    document.getElementById('precoProduto').value = ""
+    document.getElementById('imagemProduto').value = ""
+    document.getElementById('pesoProduto').value = ""
+    document.getElementById('inputLista').value = ""
+    document.getElementById('idProdutoAlterar').value = ""
+    document.getElementById('nomeProdutoAlterar').value = ""
+    document.getElementById('codigoProdutoAlterar').value = ""
+    document.getElementById('descricaoProdutoAlterar').value = ""
+    document.getElementById('precoProdutoAlterar').value = ""
+    document.getElementById('imagemProdutoAlterar').value = ""
+    document.getElementById('pesoProdutoAlterar').value = ""
+    document.getElementById('inputListaAlterar').value = ""
 
 }
 
@@ -38,10 +63,28 @@ function incluirCategoria () {
     var nome = document.getElementById('nomeCategoriaIncluir').value.toString()
     var url = `http://loja.buiar.com/?key=8t4b2j&c=categoria&t=inserir&nome=${nome}&f=json`
     
-    criarRequest(url, false)
+    criarRequest(url, 'incluirCategoria')
     limparCampos()
     listarCategorias()
     
+}
+
+function incluirProduto () {
+
+    var id = document.getElementById('idProduto').value.toString()
+    var nome = document.getElementById('nomeProduto').value.toString()
+    var codigo = document.getElementById('codigoProduto').value.toString()
+    var descricao = document.getElementById('descricaoProduto').value.toString()
+    var preco = document.getElementById('precoProduto').value.toString()
+    var imagem = document.getElementById('imagemProduto').value.toString()
+    var peso = document.getElementById('pesoProduto').value.toString()
+    var idCategoria = document.getElementById('inputLista').value.toString()
+    var url = `http://loja.buiar.com/?key=8t4b2j&c=produto&t=inserir&categoria=${idCategoria}&codigo=${codigo}&nome=${nome}&descricao=${descricao}&peso=${peso}&preco=${preco}&id=${id}&imagem=${imagem}&f=json`
+
+    criarRequest(url, 'incluirProduto')
+    limparCampos()
+    listarProdutos()
+
 }
 
 function excluirCategoria () {
@@ -49,10 +92,21 @@ function excluirCategoria () {
     var id = document.getElementById('idCategoriaExcluir').value.toString()
     var url = `http://loja.buiar.com/?key=8t4b2j&c=categoria&t=remover&id=${id}&f=json`
     
-    criarRequest(url, false)
+    criarRequest(url, 'excluirCategoria')
     limparCampos()
     listarCategorias()
     
+}
+
+function excluirProduto () {
+
+    var id = document.getElementById('idProdutoExcluir').value.toString()
+    var url = `http://loja.buiar.com/?key=8t4b2j&c=produto&t=remover&id=${id}&f=json`
+
+    criarRequest(url, 'excluirProduto')
+    limparCampos()
+    listarProdutos()
+
 }
 
 function alterarCategoria () {
@@ -61,9 +115,27 @@ function alterarCategoria () {
     var nome = document.getElementById('nomeCategoriaAlterar').value.toString()
     var url = `http://loja.buiar.com/?key=8t4b2j&c=categoria&t=alterar&id=${id}&nome=${nome}&f=json`
 
-    criarRequest(url, false)
+    criarRequest(url, 'alterarCategoria')
     limparCampos()
     listarCategorias()
+
+}
+
+function alterarProduto () {
+
+    var id = document.getElementById('idProdutoAlterar').value.toString()
+    var nome = document.getElementById('nomeProdutoAlterar').value.toString()
+    var codigo = document.getElementById('codigoProdutoAlterar').value.toString()
+    var descricao = document.getElementById('descricaoProdutoAlterar').value.toString()
+    var preco = document.getElementById('precoProdutoAlterar').value.toString()
+    var imagem = document.getElementById('imagemProdutoAlterar').value.toString()
+    var peso = document.getElementById('pesoProdutoAlterar').value.toString()
+    var idCategoria = document.getElementById('inputListaAlterar').value.toString()
+    var url = `http://loja.buiar.com/?key=8t4b2j&c=produto&t=alterar&id=${id}&nome=${nome}&codigo=${codigo}&descricao=${descricao}&preco=${preco}&imagem=${imagem}&peso=${peso}&categoria=${idCategoria}&f=json`
+
+    criarRequest(url, 'alterarProduto')
+    limparCampos()
+    listarProdutos()
 
 }
 
@@ -73,15 +145,23 @@ function criarRequest (url, nome) {
 
     request.open('GET', url)
     request.responseType = 'json'
-
     request.onreadystatechange = function () {
 
-        if(request.readyState === XMLHttpRequest.DONE) {
+        if (request.readyState === XMLHttpRequest.DONE) {
 
             var status = request.status;
 
-            if (status === 0 || (status >= 200 && status < 400))
-                nome == 'categorias' ? gerarTabela(request.response, 'categorias') : gerarTabela(request.response, 'produtos') 
+            if (status === 0 || (status >= 200 && status < 400)) {
+
+                if (nome == 'categorias')
+                    gerarTabela(request.response, 'categorias')
+
+                else if (nome == 'produtos')
+                    gerarTabela(request.response, 'produtos')
+
+                else console.log(request)
+
+            } 
 
         }
     }
@@ -90,7 +170,7 @@ function criarRequest (url, nome) {
 
 }
 
-function gerarTabela(response, tipo) {
+function gerarTabela (response, tipo) {
 
     let tabela = document.getElementById(tipo)
     let dados = response.dados
@@ -109,7 +189,7 @@ function gerarTabela(response, tipo) {
         tr.appendChild(nome)
         tr.appendChild(id)
         
-        if(tipo == 'produtos') {
+        if (tipo == 'produtos') {
             
             let codigo = document.createElement('td')
             let categoria = document.createElement('td')
@@ -133,6 +213,28 @@ function gerarTabela(response, tipo) {
             tr.appendChild(peso)
 
         }
+
+    }
+
+}
+
+function carregarListaCategorias () {
+
+    let listaCp = document.getElementById('listaCategoriasProdutos')
+    let listaCpAlterar = document.getElementById('listaCategoriasProdutosAlterar')
+    let dados = requestCategorias.response.dados
+
+    for (let i = 0; i < dados.length; i++) {
+
+        let option = document.createElement('option')
+        let optionAlterar = document.createElement('option')
+
+        option.innerText = dados[i].nome
+        option.setAttribute('value', dados[i].id)
+        optionAlterar.innerText = dados[i].nome
+        optionAlterar.setAttribute('value', dados[i].id)
+        listaCp.appendChild(option)
+        listaCpAlterar.appendChild(optionAlterar)
 
     }
 
