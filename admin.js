@@ -1,6 +1,6 @@
-function limparTabela() {
+function limparTabela(tipo) {
 
-    let tabela = document.getElementById('categorias')
+    let tabela = document.getElementById(tipo)
 
     tabela.innerHTML = ""
 
@@ -19,7 +19,16 @@ function listarCategorias () {
 
     var url = 'http://loja.buiar.com/?key=8t4b2j&c=categoria&t=listar&f=json'
 
-    criarRequest(url, true)
+    criarRequest(url, 'categorias')
+    limparCampos()
+
+}
+
+function listarProdutos () {
+
+    var url = 'http://loja.buiar.com/?key=8t4b2j&c=produto&t=listar&f=json'
+
+    criarRequest(url, 'produtos')
     limparCampos()
 
 }
@@ -58,10 +67,9 @@ function alterarCategoria () {
 
 }
 
-function criarRequest (url, listar) {
+function criarRequest (url, nome) {
 
     var request = new XMLHttpRequest()
-    var response
 
     request.open('GET', url)
     request.responseType = 'json'
@@ -73,8 +81,7 @@ function criarRequest (url, listar) {
             var status = request.status;
 
             if (status === 0 || (status >= 200 && status < 400))
-                if (listar)
-                    gerarTabela(request.response) 
+                nome == 'categorias' ? gerarTabela(request.response, 'categorias') : gerarTabela(request.response, 'produtos') 
 
         }
     }
@@ -83,13 +90,12 @@ function criarRequest (url, listar) {
 
 }
 
-function gerarTabela(response) {
+function gerarTabela(response, tipo) {
 
-    let tabela = document.getElementById('categorias')
+    let tabela = document.getElementById(tipo)
+    let dados = response.dados
 
-    dados = response.dados
-
-    limparTabela()
+    limparTabela(tipo)
 
     for (let i = 0; i < dados.length; i++) {
 
@@ -102,6 +108,31 @@ function gerarTabela(response) {
         id.innerText = dados[i].id 
         tr.appendChild(nome)
         tr.appendChild(id)
+        
+        if(tipo == 'produtos') {
+            
+            let codigo = document.createElement('td')
+            let categoria = document.createElement('td')
+            let descricao = document.createElement('td')
+            let preco = document.createElement('td')
+            let imagem = document.createElement('td')
+            let peso = document.createElement('td')
+
+            codigo.innerText = dados[i].codigo
+            categoria.innerText = dados[i].categoria
+            descricao.innerText = dados[i].descricao
+            preco.innerText = dados[i].peso
+            imagem.innerText = dados[i].imagem
+            peso.innerText = dados[i].peso
+
+            tr.appendChild(codigo)
+            tr.appendChild(categoria)
+            tr.appendChild(descricao)
+            tr.appendChild(preco)
+            tr.appendChild(imagem)
+            tr.appendChild(peso)
+
+        }
 
     }
 
