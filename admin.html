@@ -1,14 +1,16 @@
 <!DOCTYPE html>
+
 <html>
+
     <head>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="admin.css">
         <script src="admin.js"></script>
         <title>NOME_LOJA - Sobre</title>
     </head>
+
     <body>
-        <!--MENU-->
         <div id="menu" name="menu">
-            <a href="index.html" class="title"><h1 class="title"><img src="Logo.png" height="50px"/>NOME_LOJA</h1></a>
+            <a href="index.html" class="title"><h1 class="title"><img src="Images/logoPrincipal.jpg" height="50px"/>HW Decks</h1></a>
             <a href="produtos.html" class="menu">Produtos</a>
             <a href="pedidos.html" class="menu">Pedidos</a>
             <a href="sobre.html" class="menu">Sobre</a>
@@ -16,66 +18,56 @@
             <a href="admin.html" class="menu">Administração</a>
             <a href="cadastro.html" class="menu">Cadastro</a>
         </div>
-        <!--MENU_END-->
-        <!--BODY-->
-
-        <br><br>
-        
+        <br><br> 
         <div id="menuAdmin" name="menuAdmin">
             <h1>Administração</h1>
             <div id="menuCategorias" name="menuCategorias">
                 <h2 id="tituloCategorias" name="tituloCategorias" class="tituloAdm">Cadastro de Categorias</h2>
-                <button id="listar" name="listar" class="botaoMenuAdmin" onclick="listarCategorias()">Listar Categorias</button>
-                <br>
-                <button id="incluirCategoria" name="incluirCategoria" class="botaoMenuAdmin" onclick="incluirCategoria()">Incluir Categoria</button>
-                <input type="text" name="nomeCategoriaIncluir" id="nomeCategoriaIncluir" placeholder="*Nome*" class="inputCategorias">
-                <br>
-                <button id="excluirCategoria" name="excluirCategoria" class="botaoMenuAdmin" onclick="excluirCategoria()">Excluir Categoria</button>
-                <input type="number" name="idCategoriaExcluir" id="idCategoriaExcluir" placeholder="*ID*" class="inputCategorias">
-                <br>
-                <div id="alterarCategoriaContainer" name="alterarCategoriaContainer">
-                    <button id="alterarCategoria" name="alterarCategoria" class="botaoMenuAdmin" onclick="alterarCategoria()">Alterar Categoria</button>
-                    <input type="number" name="idCategoriaAlterar" id="idCategoriaAlterar" placeholder="*ID*" class="inputCategorias">
-                    <input type="text" name="nomeCategoriaAlterar" id="nomeCategoriaAlterar" placeholder="*Novo nome" class="inputCategorias">
-                </div>
-                <table id="categorias" name = "categorias"></table>
+                <button id="listar" name="listar" class="botaoMenuAdmin" onclick="listarCategorias()">Listar Categorias</button><br>
+                <table id="categorias" name = "categorias"></table><br>
+                <label for="nomeCategoriaIncluir" class="labelMenuAdmin">Informe o nome da categoria a ser incluída:</label><br>
+                <input type="text" name="nomeCategoriaIncluir" id="nomeCategoriaIncluir" placeholder="*Nome*" class="inputCategorias"><br>
+                <button id="incluirCategoria" name="incluirCategoria" class="botaoMenuAdmin" onclick="incluirCategoria()">Incluir Categoria</button><br>
+                <label for="idCategoriaExcluir" class="labelMenuAdmin">Informe o ID da categoria a ser excluída:</label><br>
+                <input type="number" name="idCategoriaExcluir" id="idCategoriaExcluir" placeholder="*ID*" class="inputCategorias"><br>
+                <button id="excluirCategoria" name="excluirCategoria" class="botaoMenuAdmin" onclick="excluirCategoria()">Excluir Categoria</button><br>
+                <label for="excluirCategoria" class="labelMenuAdmin">Informe o ID e o novo nome da categoria a ser alterada:</label><br>
+                <input type="number" name="idCategoriaAlterar" id="idCategoriaAlterar" placeholder="*ID*" class="inputCategorias"><br>
+                <input type="text" name="nomeCategoriaAlterar" id="nomeCategoriaAlterar" placeholder="*Novo nome" class="inputCategorias"><br>                
+                <button id="alterarCategoria" name="alterarCategoria" class="botaoMenuAdmin" onclick="alterarCategoria()">Alterar Categoria</button><br>
             </div>
             <div id="menuProdutos" name="menuProdutos">
                 <h2 class="tituloAdm">Cadastro de Produtos</h2>
-                <button id="listarProdutos" name="listarProdutos" class="botaoMenuAdmin" onclick="listarProdutos()">Listar Produtos</button>
-                <br>
-                <button id="incluirProduto" name="incluirProduto" class="botaoMenuAdmin" onclick="incluirProduto()">Incluir Produto</button>
-                <input type="number" id="idProduto" name="idProduto" class="inputProdutos" placeholder="*ID*">
-                <input type="text" id="nomeProduto" name="nomeProduto" class="inputProdutos" placeholder="*Nome*">
-                <input type="number" id="codigoProduto" name="codigoProduto" class="inputProdutos" placeholder="*Código*">
-                <input type="text" id="descricaoProduto" name="descricaoProduto" class="inputProdutos" placeholder="*Descrição*">
-                <input type="number" id="precoProduto" name="precoProduto" class="inputProdutos" placeholder="*Preço*">
-                <input type="text" id="imagemProduto" name="imagemProduto" class="inputProdutos" placeholder="*URL imagem*">
-                <input type="number" id="pesoProduto" name="pesoProduto" class="inputProdutos" placeholder="*Peso*">
-                <input list="listaCategoriasProdutos" name="inputLista" id="inputLista" placeholder="*ID Categoria" required>
+                <button id="listarProdutos" name="listarProdutos" class="botaoMenuAdmin" onclick="listarProdutos()">Listar Produtos</button><br>
+                <table id="produtos" name="produtos"></table><br>
+                <label for="incluirProduto" class="labelMenuAdmin">Preencha os campos do novo produto:</label><br>
+                <input type="number" id="idProduto" name="idProduto" class="inputProdutos" placeholder="*ID*"><br>
+                <input type="text" id="nomeProduto" name="nomeProduto" class="inputProdutos" placeholder="*Nome*"><br>
+                <input type="number" id="codigoProduto" name="codigoProduto" class="inputProdutos" placeholder="*Código*"><br>
+                <input type="text" id="descricaoProduto" name="descricaoProduto" class="inputProdutos" placeholder="*Descrição*"><br>
+                <input type="number" id="precoProduto" name="precoProduto" class="inputProdutos" placeholder="*Preço*"><br>
+                <input type="text" id="imagemProduto" name="imagemProduto" class="inputProdutos" placeholder="*URL imagem*"><br>
+                <input type="number" id="pesoProduto" name="pesoProduto" class="inputProdutos" placeholder="*Peso*"><br>
+                <input list="listaCategoriasProdutos" name="inputLista" id="inputLista" class="inputProdutos" placeholder="*ID Categoria" required><br>
                 <datalist id="listaCategoriasProdutos"></datalist>
-                <br>
-                <button id="excluirProduto" name="excluirProduto" class="botaoMenuAdmin" onclick="excluirProduto()">Excluir Produto</button>
-                <input type="number" id="idProdutoExcluir" name="idProdutoExcluir" class="inputProdutos" placeholder="*ID*">
-                <br>
-                <button id="alterarProduto" name="alterarProduto" class="botaoMenuAdmin" onclick="alterarProduto()">Alterar Produto</button>
-                <input type="number" id="idProdutoAlterar" name="idProdutoAlterar" class="inputProdutos" placeholder="*ID*">
-                <input type="text" id="nomeProdutoAlterar" name="nomeProdutoAlterar" class="inputProdutos" placeholder="*Nome*">
-                <input type="number" id="codigoProdutoAlterar" name="codigoProdutoAlterar" class="inputProdutos" placeholder="*Código*">
-                <input type="text" id="descricaoProdutoAlterar" name="descricaoProdutoAlterar" class="inputProdutos" placeholder="*Descrição*">
-                <input type="number" id="precoProdutoAlterar" name="precoProdutoAlterar" class="inputProdutos" placeholder="*Preço*">
-                <input type="text" id="imagemProdutoAlterar" name="imagemProdutoAlterar" class="inputProdutos" placeholder="*URL imagem*">
-                <input type="number" id="pesoProdutoAlterar" name="pesoProdutoAlterar" class="inputProdutos" placeholder="*Peso*">
-                <input list="listaCategoriasProdutosAlterar" name="inputListaAlterar" id="inputListaAlterar" placeholder="*ID Categoria" required>
-                <datalist id="listaCategoriasProdutosAlterar"></datalist>
-                <br>
-                <table id="produtos" name="produtos"></table>
+                <button id="incluirProduto" name="incluirProduto" class="botaoMenuAdmin" onclick="incluirProduto()">Incluir Produto</button><br>
+                <label for="idProdutoExcluir" class="labelMenuAdmin">Informe o ID do produto a ser excluído:</label><br>
+                <input type="number" id="idProdutoExcluir" name="idProdutoExcluir" class="inputProdutos" placeholder="*ID*"><br>
+                <button id="excluirProduto" name="excluirProduto" class="botaoMenuAdmin" onclick="excluirProduto()">Excluir Produto</button><br>
+                <label for="incluirProduto" class="labelMenuAdmin">Preencha os campos do produto a ser alterado:</label><br>
+                <input type="number" id="idProdutoAlterar" name="idProdutoAlterar" class="inputProdutos" placeholder="*ID*"><br>
+                <input type="text" id="nomeProdutoAlterar" name="nomeProdutoAlterar" class="inputProdutos" placeholder="*Nome*"><br>
+                <input type="number" id="codigoProdutoAlterar" name="codigoProdutoAlterar" class="inputProdutos" placeholder="*Código*"><br>
+                <input type="text" id="descricaoProdutoAlterar" name="descricaoProdutoAlterar" class="inputProdutos" placeholder="*Descrição*"><br>
+                <input type="number" id="precoProdutoAlterar" name="precoProdutoAlterar" class="inputProdutos" placeholder="*Preço*"><br>
+                <input type="text" id="imagemProdutoAlterar" name="imagemProdutoAlterar" class="inputProdutos" placeholder="*URL imagem*"><br>
+                <input type="number" id="pesoProdutoAlterar" name="pesoProdutoAlterar" class="inputProdutos" placeholder="*Peso*"><br>
+                <input list="listaCategoriasProdutosAlterar" name="inputListaAlterar" class="inputProdutos" id="inputListaAlterar" placeholder="*ID Categoria" required>
+                <datalist id="listaCategoriasProdutosAlterar"></datalist><br>
+                <button id="alterarProduto" name="alterarProduto" class="botaoMenuAdmin" onclick="alterarProduto()">Alterar Produto</button><br>
             </div>
 
         </div>
-
-        <!--BODY_END-->
-        <!--FOOTER-->
-        <!--FOOTER_END-->
     </body>
+
 </html>

@@ -173,21 +173,55 @@ function criarRequest (url, nome) {
 function gerarTabela (response, tipo) {
 
     let tabela = document.getElementById(tipo)
+    let atributos = document.createElement('tr')
+    let idAtributo = document.createElement('th')
+    let nomeAtributo = document.createElement('th')
     let dados = response.dados
 
     limparTabela(tipo)
 
+    idAtributo.innerText = 'ID'
+    nomeAtributo.innerText = 'Nome'
+    tabela.appendChild(atributos)
+    atributos.appendChild(idAtributo)
+    atributos.appendChild(nomeAtributo)
+
+    if( tipo == 'produtos') {
+
+        let codigoAtributo = document.createElement('th')
+        let categoriaAtributo = document.createElement('th')
+        let descricaoAtributo = document.createElement('th')
+        let precoAtributo = document.createElement('th')
+        let imagemAtributo = document.createElement('th')
+        let pesoAtributo = document.createElement('th')
+
+        codigoAtributo.innerText = 'Código'
+        categoriaAtributo.innerText = 'Categoria'
+        descricaoAtributo.innerText = 'Descrição'
+        precoAtributo.innerText = 'Preço'
+        imagemAtributo.innerText = 'Imagem'
+        pesoAtributo.innerText = 'Peso'
+
+        atributos.appendChild(codigoAtributo)
+        atributos.appendChild(categoriaAtributo)
+        atributos.appendChild(descricaoAtributo)
+        atributos.appendChild(precoAtributo)
+        atributos.appendChild(imagemAtributo)
+        atributos.appendChild(pesoAtributo)
+
+    }
+
     for (let i = 0; i < dados.length; i++) {
 
         let tr = document.createElement('tr')
-        let nome = document.createElement('td')
         let id = document.createElement('td')
+        let nome = document.createElement('td')
 
         tabela.appendChild(tr)
         nome.innerText = dados[i].nome 
         id.innerText = dados[i].id 
-        tr.appendChild(nome)
         tr.appendChild(id)
+        tr.appendChild(nome)
         
         if (tipo == 'produtos') {
             

@@ -1,0 +1,210 @@
+body {
+
+    background-color: #181616;
+    color: rgb(105, 105, 105);
+    font-size: 1.2vw;
+
+}
+
+p {
+
+    text-align: justify;
+
+}
+
+h1 {
+
+    color: floralwhite;
+    font-size: 2vw;
+    text-align: center;
+
+}
+
+h2 {
+
+    color: floralwhite;
+    font-size: 1.75vw;
+    text-align: center;
+
+}
+
+input {
+
+    background-color: #67676716;
+    color: floralwhite;
+
+}
+
+button {
+
+    background-color: #676767ab;
+    font-size: large;
+    color: #1b1b1be0;
+    border-style: none;
+    border-radius: 3px;
+    padding: 2px 4vw;
+
+}
+
+table {
+
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+
+}
+
+td {
+
+    border: 1px solid #1b1b1be0;
+    padding: 12px;
+    text-align: center;
+
+}
+
+tr:nth-child(even) {
+
+    background-color: #f2f2f2;
+
+}
+
+tr:hover {
+
+    background-color: #ddd;
+
+}
+
+th {
+
+    border: 1px solid #1b1b1be0;
+    padding: 12px;
+    text-align: center;
+    background-color: #FFD369;
+    color: #1b1b1be0;
+
+}
+
+label, input {
+
+    display: inline-block;
+    border-radius: 5px;
+
+}
+
+label {
+
+    width: 32%;
+    text-align: center;
+
+}
+
+a.menu {
+
+    color: #fffaf0;
+    font-size: 1.3vw;
+    border: 0.5vmin solid;
+    border-color: #676767b3;
+    border-radius: 5px;
+    padding: 8px 4.75vw;
+    text-decoration: none;
+
+}
+
+a.home {
+
+    color: #FFD369;
+    font-size: 1.75vw;
+
+}
+
+p.label {
+
+    text-align: center;
+
+}
+
+a:hover.menu {
+
+    color: #FFD369;
+
+}
+
+#center {
+
+    text-align: center;
+
+}
+
+#menu {
+
+    text-align: center;
+    margin: auto;
+
+}
+
+#menuProdutos {
+
+    float: right;
+    width: 50%;
+    height: 100%;
+
+}
+
+#menuCategorias {
+
+    float: left;
+    width: 50%;
+    height: 100%;
+
+}
+
+#listar, #listarProdutos {
+
+    margin-bottom: 1%;
+
+}
+
+#menuAdmin {
+
+    width: 100%;
+    height: 100%;
+
+}
+
+.title {
+
+    color: #EEEEEE;
+    font-size: 2vw;
+    font-style: normal;
+    text-decoration: none;
+
+}
+
+.botaoMenuAdmin {
+
+    position: static;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+
+}
+
+.inputCategorias, .inputProdutos {
+
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+
+}
+
+.labelMenuAdmin {
+
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+
+}
+  
