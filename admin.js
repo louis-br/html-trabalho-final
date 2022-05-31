@@ -6,11 +6,21 @@ function limparTabela() {
 
 }
 
+function limparCampos() {
+
+    document.getElementById('nomeCategoriaIncluir').value = ""
+    document.getElementById('idCategoriaExcluir').value = ""
+    document.getElementById('idCategoriaAlterar').value = ""
+    document.getElementById('nomeCategoriaAlterar').value = ""
+
+}
+
 function listarCategorias () {
 
     var url = 'http://loja.buiar.com/?key=8t4b2j&c=categoria&t=listar&f=json'
 
     criarRequest(url, true)
+    limparCampos()
 
 }
 
@@ -20,6 +30,8 @@ function incluirCategoria () {
     var url = `http://loja.buiar.com/?key=8t4b2j&c=categoria&t=inserir&nome=${nome}&f=json`
     
     criarRequest(url, false)
+    limparCampos()
+    listarCategorias()
     
 }
 
@@ -29,6 +41,8 @@ function excluirCategoria () {
     var url = `http://loja.buiar.com/?key=8t4b2j&c=categoria&t=remover&id=${id}&f=json`
     
     criarRequest(url, false)
+    limparCampos()
+    listarCategorias()
     
 }
 
@@ -39,6 +53,8 @@ function alterarCategoria () {
     var url = `http://loja.buiar.com/?key=8t4b2j&c=categoria&t=alterar&id=${id}&nome=${nome}&f=json`
 
     criarRequest(url, false)
+    limparCampos()
+    listarCategorias()
 
 }
 

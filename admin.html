@@ -21,11 +21,12 @@
 
         <br><br>
         
-        <h1>Administração</h1>
         <div id="menuAdmin" name="menuAdmin">
+            <h1>Administração</h1>
             <div id="menuCategorias" name="menuCategorias">
+                <h2 id="tituloCategorias" name="tituloCategorias" class="tituloAdm">Cadastro de Categorias</h2>
                 <button id="listar" name="listar" class="botaoMenuAdmin" onclick="listarCategorias()">Listar Categorias</button>
-                <br><br>
+                <br>
                 <button id="incluirCategoria" name="incluirCategoria" class="botaoMenuAdmin" onclick="incluirCategoria()">Incluir Categoria</button>
                 <input type="text" name="nomeCategoriaIncluir" id="nomeCategoriaIncluir" placeholder="*Nome*" class="inputCategorias">
                 <br>
@@ -33,15 +34,24 @@
                 <input type="number" name="idCategoriaExcluir" id="idCategoriaExcluir" placeholder="*ID*" class="inputCategorias" >
                 <br>
                 <div id="alterarCategoriaContainer" name="alterarCategoriaContainer">
-                    <button id="alterarCategoria" name="alterarCategoria" class="alterarCategoria" onclick="alterarCategoria()">Alterar Categoria</button>
+                    <button id="alterarCategoria" name="alterarCategoria" class="botaoMenuAdmin" onclick="alterarCategoria()">Alterar Categoria</button>
                     <input type="number" name="idCategoriaAlterar" id="idCategoriaAlterar" placeholder="*ID*" class="inputCategorias">
-                    <input type="text" name="nomeCategoriaAlterar" id="nomeCategoriaAlterar" placeholder="*Novo nome" class="inputCategorias>
+                    <input type="text" name="nomeCategoriaAlterar" id="nomeCategoriaAlterar" placeholder="*Novo nome" class="inputCategorias">
                 </div>
+                <table id="categorias" name = "categorias"></table>
             </div>
             <div id="menuProdutos" name="menuProdutos">
-
+                <h2 class="tituloAdm">Cadastro de Produtos</h2>
+                <button id="listarProdutos" name="listarProdutos" class="botaoMenuAdmin" onclick="listarProdutos()">Listar Produtos</button>
+                <br>
+                <button id="incluirProduto" name="incluirProduto" class="botaoMenuAdmin" onclick="incluirProduto()">Incluir Produto</button>
+                <br>
+                <button id="excluirProduto" name="excluirProduto" class="botaoMenuAdmin" onclick="excluirProduto()">Excluir Produto</button>
+                <br>
+                <button id="alterarProduto" name="alterarProduto" class="botaoMenuAdmin" onclick="alterarProduto()">Alterar Produto</button>
+                <br>
             </div>
-            <table id="categorias" name = "categorias"></table>
+
         </div>
 
         <!--BODY_END-->

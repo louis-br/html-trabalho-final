@@ -93,8 +93,8 @@ input {
 
     position: static;
     margin-top: 1%;
-    margin-left: 0%;
-    width: 20%;
+    margin-left: 5%;
+    width: 40%;
 
 }
 
@@ -104,10 +104,25 @@ input {
 
 }
 
-#alterarCategoria {
+#menuProdutos {
 
-    position: static;
-    width: 20%;
+    float: right;
+    width: 50%;
+    height: 100%;
+
+}
+
+#menuCategorias {
+
+    float: left;
+    width: 50%;
+    height: 100%;
+
+}
+
+#listar, #listarProdutos {
+
+    margin-bottom: 1%;
 
 }
 
@@ -117,7 +132,6 @@ input {
     height: 100%;
 
 }
-
 
 #nomeCategoriaAlterar {
 
@@ -169,5 +183,11 @@ img.product {
 p.label {
     text-align: center;
     margin: 0 4vw 0 7.8vw;
+}
+
+.tituloAdm {
+
+    text-align: center;
+
 }
 
