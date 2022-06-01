@@ -15,6 +15,13 @@ function limparTabela (tipo) {
 
 }
 
+function converterEntradaNumerica(valor) {
+    valor = valor.replace(/\./g, "")
+    valor = valor.replace(/,/g, ".")
+    valor = valor.replace(/[^\d.]/g, "")
+    return Number(valor)
+}
+
 function limparCampos () {
 
     document.getElementById('nomeCategoriaIncluir').value = ""
@@ -79,6 +86,10 @@ function incluirProduto () {
     var imagem = document.getElementById('imagemProduto').value.toString()
     var peso = document.getElementById('pesoProduto').value.toString()
     var idCategoria = document.getElementById('inputLista').value.toString()
+
+    preco = converterEntradaNumerica(preco)
+    peso = converterEntradaNumerica(peso)
+
     var url = `http://loja.buiar.com/?key=8t4b2j&c=produto&t=inserir&categoria=${idCategoria}&codigo=${codigo}&nome=${nome}&descricao=${descricao}&peso=${peso}&preco=${preco}&id=${id}&imagem=${imagem}&f=json`
 
     criarRequest(url, 'incluirProduto')
@@ -131,6 +142,10 @@ function alterarProduto () {
     var imagem = document.getElementById('imagemProdutoAlterar').value.toString()
     var peso = document.getElementById('pesoProdutoAlterar').value.toString()
     var idCategoria = document.getElementById('inputListaAlterar').value.toString()
+
+    preco = converterEntradaNumerica(preco)
+    peso = converterEntradaNumerica(peso)
+
     var url = `http://loja.buiar.com/?key=8t4b2j&c=produto&t=alterar&id=${id}&nome=${nome}&codigo=${codigo}&descricao=${descricao}&preco=${preco}&imagem=${imagem}&peso=${peso}&categoria=${idCategoria}&f=json`
 
     criarRequest(url, 'alterarProduto')
@@ -168,6 +183,25 @@ function criarRequest (url, nome) {
 
     request.send()
 
+}
+
+function formatarLocalizado(valor, monetario) {
+    valor = Number(valor)
+    opcoes = {
+        minimumFractionDigits: 3
+    }
+    if (monetario) {
+        opcoes = {
+            style: "currency",
+            currency: "BRL",
+        }
+    }
+    return ((valor).toLocaleString("pt-BR", opcoes)
+    )
+}
+
+function formatarPeso(valor) {
+    return formatarLocalizado(valor) + "\xA0kg"
 }
 
 function gerarTabela (response, tipo) {
@@ -235,9 +269,9 @@ function gerarTabela (response, tipo) {
             codigo.innerText = dados[i].codigo
             categoria.innerText = dados[i].categoria
             descricao.innerText = dados[i].descricao
-            preco.innerText = dados[i].peso
+            preco.innerText = formatarLocalizado(dados[i].preco, true)
             imagem.innerText = dados[i].imagem
-            peso.innerText = dados[i].peso
+            peso.innerText = formatarPeso(dados[i].peso)
 
             tr.appendChild(codigo)
             tr.appendChild(categoria)
