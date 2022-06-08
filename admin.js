@@ -16,10 +16,13 @@ function limparTabela (tipo) {
 }
 
 function converterEntradaNumerica(valor) {
+
     valor = valor.replace(/\./g, "")
     valor = valor.replace(/,/g, ".")
     valor = valor.replace(/[^\d.]/g, "")
+
     return Number(valor)
+
 }
 
 function limparCampos () {
@@ -186,22 +189,31 @@ function criarRequest (url, nome) {
 }
 
 function formatarLocalizado(valor, monetario) {
+
     valor = Number(valor)
     opcoes = {
+
         minimumFractionDigits: 3
     }
+
     if (monetario) {
+
         opcoes = {
+
             style: "currency",
             currency: "BRL",
+
         }
     }
-    return ((valor).toLocaleString("pt-BR", opcoes)
-    )
+
+    return ((valor).toLocaleString("pt-BR", opcoes))
+
 }
 
 function formatarPeso(valor) {
+
     return formatarLocalizado(valor) + "\xA0kg"
+
 }
 
 function gerarTabela (response, tipo) {
