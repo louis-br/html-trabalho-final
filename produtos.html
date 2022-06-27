@@ -20,57 +20,47 @@
         <!--BODY-->
 
         <br><br>
+
+        <button id="carrinho" onclick="mostrarCarrinho()" ondrop="drop(event)" ondragover="allowDrop(event)"><img src="Images/carrinho.svg"></button>
+
+        <div id="paginaConfirmacao" class="pagina">
+            <p>
+                Página para etapa de confirmação do pedido
+            </p>
+        </div>
+
+        <div id="paginaCarrinho" class="pagina">
+            <p>
+                Items no carrinho:
+            </p>
+            <table id="tabelaCarrinho">
+                <tr>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                    <th>Alterar</th>
+                    <th>Excluir</th>
+                </tr>
+                <tr>
+                    <td name="nomeItem">Nome</td>
+                    <td name="quantidadeItem">1</td>
+                    <td>
+                        <input type="number" name="alterarQuantidadeItem" placeholder="1">
+                    </td>
+                    <td>
+                        <button name="excluirItem" style="position:static;">X</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="paginaProdutos" class="pagina">
+            <h1>Selecione uma categoria</h1>
+            <div class="divCategorias" id="divCategorias">
+                <ul class="categorias" id="categorias"></ul>
+            </div>
+            <div class="divProdutos" id="divProdutos"></div>
+        </div>
         
-        <h1>Selecione uma categoria</h1>
-        <div class="divCategorias" id="divCategorias">
-            <ul class="categorias" id="categorias"></ul>
-        </div>
-        <div class="divProdutos" id="divProdutos"></div>
-        <!-- <h2>Bicycle</h2>
-        <div class="column">
-            <p class="label">
-                Bicycle Standard
-            </p>
-            <img src="Images/bicycle-standard.jpg" alt="Image could not be loaded" class="product">
-        </div>
-        <div class="column">
-            <p class="label">
-                Bicycle Natural Disasters Volcano
-            </p>
-            <img src="Images/bicycle-natural-disasters-volcano.jpg" alt="Image could not be loaded" class="product">
-        </div>
-        <div class="column">
-            <p class="label">
-                Bicycle Bourbon
-            </p>
-            <img src="Images/bicycle-bourbon.jpg" alt="Image could not be loaded" class="product">
-        </div>
-        <p>
-            In hac habitasse platea dictumst. Suspendisse dolor libero, molestie nec elit in, lobortis rutrum ipsum. Sed suscipit euismod tellus sed consectetur. 
-            Proin porttitor tortor dui, nec sagittis neque efficitur sit amet. Nullam mi tortor, tincidunt ac nulla et, vehicula maximus risus. Vestibulum sit amet nibh 
-            eget ex finibus pretium in vitae libero. Praesent a ornare odio, ut vehicula risus. Pellentesque luctus elit mattis felis auctor, a ultricies leo mollis. Quisque 
-            consectetur urna et bibendum dignissim. Cras pretium purus vestibulum magna venenatis, nec eleifend mi rhoncus. Nullam tempus diam id ante sodales, ac rhoncus quam molestie. 
-            Praesent id dolor iaculis, tincidunt risus ac, rutrum massa.
-        </p>
-        <h2>Fontaine</h2>
-        <p>
-            Aliquam id turpis venenatis, tempor dolor nec, efficitur ipsum. Duis lobortis rutrum sem, non placerat ante tempor ut. Phasellus non maximus ligula. Aliquam odio sapien, porta pulvinar mi in, 
-            efficitur placerat odio. Etiam quis sollicitudin lorem, id pulvinar ipsum. Pellentesque id malesuada augue. Phasellus suscipit tortor at eros bibendum, a semper dolor eleifend. Phasellus ut quam fermentum, 
-            faucibus eros vitae, dictum ante. Vestibulum sagittis consequat est bibendum volutpat. In commodo scelerisque dapibus.
-        </p>
-        <p>
-            Donec ornare magna id mauris scelerisque, quis elementum mauris molestie. Nullam congue rhoncus nulla, vitae molestie odio porttitor et. Duis gravida, tellus eget condimentum rhoncus, massa odio 
-            vestibulum nunc, sit amet scelerisque ligula enim nec erat. Aliquam interdum magna vitae luctus suscipit. Nunc cursus volutpat velit, id tristique tortor tincidunt id. Maecenas lobortis orci eget 
-            faucibus porta. Nam elementum lacinia ultricies.
-        </p>
-        <h2>Virtuoso</h2>
-        <p>
-            Vivamus et tortor nec quam efficitur sodales. Sed in ultrices mi. Pellentesque ut maximus libero. Quisque auctor facilisis luctus. Phasellus id mauris vel metus faucibus viverra. Vestibulum ante 
-            ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce consequat sed leo nec varius.
-        </p> -->
-
-
-
         <br><br><br>
 
         <!--BODY_END-->

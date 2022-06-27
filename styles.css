@@ -219,3 +219,25 @@ li:hover {
 
 }
 
+#paginaConfirmacao {
+    display: none;
+}
+
+#paginaCarrinho {
+    display: none;
+}
+
+#carrinho {
+    position: fixed;
+    height: 50px;
+    width: 50px;
+    top: 5px;
+    left: calc(100% - 55px);
+    background-color: white;
+    padding: 5px 5px;
+}
+
+#carring.img {
+    width: 100%;
+    height: 100%;
+}
