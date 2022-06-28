@@ -402,12 +402,10 @@ function processarPedido(pedido){
 }
 
 function gerarBoleto(pedido){
-    var request = new XMLHttpRequest()
+    document.getElementById('confirmacaoDados').style.display = 'none'
+    let boleto = document.getElementById('Boleto')
+    boleto.style.display = 'block'
+    let url = `http://loja.buiar.com/?key=8t4b2j&c=boleto&t=listar&id=${pedido}&f=json`
 
-        let url = `http://loja.buiar.com/?key=8t4b2j&c=boleto&t=listar&id=${pedido}&f=json`
-        request.open('POST', url)
-        request.responseType = 'json'
-        request.send()
-        console.log(request.response)
-        console.log('Boleto gerado')
+    document.getElementById('linkBoleto').href = url
 }
