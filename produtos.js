@@ -201,8 +201,16 @@ function gerarCarrinho() {
             </td>
         </tr>`
     }
-    items += `<a href="confirmacaoPedido.html">Confirmar pedido </a>`
+    items += `<button onclick="confirmarPedido()">Confirmar pedido</button>`
     document.getElementById("tabelaCarrinho").innerHTML = items
+}
+
+function confirmarPedido() {
+
+    document.getElementById('paginaProdutos').style.display = 'none'
+    document.getElementById('paginaConfirmacao').style.display = 'block'
+
+
 }
 
 function carrinhoAdicionarItem(id) {
@@ -224,4 +232,65 @@ function carrinhoAlterarItem(ev, id) {
 function carrinhoExcluirItem(id) {
     delete carrinho[id]
     gerarCarrinho()
+}
+
+function buscarCep() {
+	let url = 'https://viacep.com.br/ws/' + cep.value + '/json';
+    console.log("acessando " + url);
+    let request = new XMLHttpRequest();
+    request.open('GET', url);
+    request.responseType = 'json';
+    request.send();
+    request.onload = function() {
+  	    let data = request.response;
+  	    console.log(request.response);
+        logradouro.value = data.logradouro;
+        bairro.value = data.bairro;
+        cidade.value = data.cidade;
+        uf.value = data.uf;
+    };
+	
+} 
+
+function enviarPedido () {
+
+    let nome = document.getElementById('name').value 
+    let cpf = document.getElementById('cpf').value 
+    let cep = document.getElementById('cep').value 
+    let logradouro = document.getElementById('logradouro').value 
+    let bairro = document.getElementById('bairro').value 
+    let cidade = document.getElementById('cidade').value 
+    let uf = document.getElementById('uf').value 
+    let numero = document.getElementById('numero').value 
+    let complemento = document.getElementById('complemento').value 
+
+    let url = `http://loja.buiar.com/?key=8t4b2j&c=pedido&t=inserir&nome=${nome}&cpf=${cpf}&cep=${cep}&rua=${logradouro}&bairro=${bairro}&cidade=${cidade}&uf=${uf}&numero=${numero}&complemento=${complemento}&f=json`
+
+    criarRequestPedido(url)
+    limparCamposPedido()
+
+}
+
+function criarRequestPedido (url) {
+
+    var request = new XMLHttpRequest()
+
+    request.open('POST', url)
+    request.responseType = 'json'
+    request.send()
+
+}
+
+function limparCamposPedido () {
+
+    document.getElementById('name').value = ''
+    document.getElementById('cpf').value = ''
+    document.getElementById('cep').value = ''
+    document.getElementById('logradouro').value = '' 
+    document.getElementById('bairro').value = ''
+    document.getElementById('cidade').value = ''
+    document.getElementById('uf').value = ''
+    document.getElementById('numero').value = ''
+    document.getElementById('complemento').value = '' 
+
 }

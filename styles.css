@@ -161,6 +161,7 @@ button {
     padding: 2px 4vw;
     position: absolute;
     left: 44.2%;
+    cursor: pointer;
 }
 
 img.product {
@@ -253,8 +254,8 @@ input[type=text], input[type=number]{
     color: #181616;
   }
 
-  input[type=submit] {
-    width: 100%;
+.submit {
+    width: 5%;
     background-color: #FFD369;
     color: black;
     padding: 14px 20px;
@@ -265,14 +266,17 @@ input[type=text], input[type=number]{
     color: black;
   }
 
-  input[type=submit]:hover {
+.submit:hover {
     background-color: #f2f2f2;
   }
 
-  form {
+  .form {
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   label {

@@ -24,9 +24,31 @@
         <button id="carrinho" onclick="mostrarCarrinho()" ondrop="drop(event)" ondragover="allowDrop(event)"><img src="Images/carrinho.svg"></button>
 
         <div id="paginaConfirmacao" class="pagina">
-            <p>
-                Página para etapa de confirmação do pedido
-            </p>
+            <h1>Confirmação do pedido</h1>
+            <div>
+                <div class="form">
+                <label for="name">Nome</label>
+                <input type="text" id="name" name="name" placeholder="Informe seu nome">
+                <label for="cpf">CPF</label>
+                <input type="text" name="cpf" id="cpf" placeholder="12345678910" maxlength=11 required><br>
+                <label for="cep">CEP</label>
+                <input type='text' id='cep' onChange='buscarCep()' placeholder='12345678' maxlength=8>
+                <label for="logradouro">Logradouro</label>
+                <input type="text" id="logradouro" name="logradouro" placeholder="informe o logradouro">
+                <label for="bairro">Bairro</label>
+                <input type="text" id="bairro" name="bairro" placeholder="Informe o bairro">
+                <label for="cidade">Cidade</label>
+                <input type="text" id="cidade" name="cidade" placeholder="Informe a cidade">
+                <label for="uf">UF</label>
+                <input type="text" id="uf" name="uf" placeholder="Informe a UF">
+                <label for="numero">Número</label>
+                <input type="text" id="numero" name="numero" placeholder="Informe o número">
+                <label for="complemento">Complemento</label>
+                <input type="text" id="complemento" name="complemento" placeholder="Informe o complemento">
+                <br>
+                <button class="submit" onclick="enviarPedido()">Finalizar</button>
+                </div>
+            </div>
         </div>
 
         <div id="paginaCarrinho" class="pagina">
@@ -59,6 +81,10 @@
                 <ul class="categorias" id="categorias"></ul>
             </div>
             <div class="divProdutos" id="divProdutos"></div>
+        </div>
+
+        <div id="paginaConfirmacao" style="display: none;">
+            
         </div>
         
         <br><br><br>
