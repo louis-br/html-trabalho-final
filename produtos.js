@@ -188,16 +188,26 @@ function gerarCarrinho() {
     </tr>`
     for (let [id, quantidade] of Object.entries(carrinho)) {
         item = produtos[id]
+        let preco = parseFloat(item.preco * carrinho[id])
         items += `
         <tr id="modeloItem">
             <td name="iconeItem"><img height="25px" src="${item.imagem}"></td>
             <td name="nomeItem">${item.nome}</td>
             <td name="quantidadeItem">${quantidade}</td>
             <td>
+                <input type="button" name="plus-button" onClick="carrinhoAdd(${id})" value="+"></button>
+            </td>
+            <td>
                 <input type="number" name="alterarQuantidadeItem" onchange="carrinhoAlterarItem(event, ${id})" placeholder="${quantidade}">
             </td>
             <td>
+                <input type="button" name="minus-button" onClick="carrinhoSub(${id})" value="-"></button>
+            </td>
+            <td>
                 <button name="excluirItem" style="position:static;" onclick="carrinhoExcluirItem(${id})">X</button>
+            </td>
+            <td>
+                ${preco}
             </td>
         </tr>`
     }
@@ -246,7 +256,7 @@ function abrirConfirmacaoPedido() {
 
     for (let [id, quantidade] of Object.entries(carrinho)) {
         item = produtos[id]
-        preco += parseInt(item.preco)
+        preco += parseInt(item.preco * Number(carrinho[id]))
         items += `
         <tr>
             <td><img height="25px" src="${item.imagem}"></td>
@@ -283,6 +293,22 @@ function carrinhoAdicionarItem(id) {
     gerarCarrinho()
 }
 
+function carrinhoAdd(id){
+    id = Number(id)
+    carrinho[id] = carrinho[id] + 1
+    gerarCarrinho()
+}
+
+function carrinhoSub(id){
+    id = Number(id)
+    carrinho[id] = carrinho[id] - 1
+    if(carrinho[id] <= 0)
+    {
+        delete carrinho[id]
+    }
+    gerarCarrinho()
+}
+
 function carrinhoAlterarItem(ev, id) {
     carrinho[id] = Number(ev.target.value)
     if (carrinho[id] <= 0) {
@@ -308,7 +334,7 @@ function buscarCep() {
   	    console.log(request.response);
         logradouro.value = data.logradouro;
         bairro.value = data.bairro;
-        cidade.value = data.cidade;
+        cidade.value = data.localidade;
         uf.value = data.uf;
     };
 	
@@ -341,6 +367,9 @@ function criarRequestPedido (url) {
     request.open('POST', url)
     request.responseType = 'json'
     request.send()
+    request.onload = function(){
+        processarPedido(this.response.dados.id);
+    }
 
 }
 
@@ -356,4 +385,29 @@ function limparCamposPedido () {
     document.getElementById('numero').value = ''
     document.getElementById('complemento').value = '' 
 
+}
+
+function processarPedido(pedido){
+    
+    for (let [id, quantidade] of Object.entries(carrinho)) {
+        var request = new XMLHttpRequest()
+
+        let url = `http://loja.buiar.com/?key=8t4b2j&c=item&t=inserir&pedido=${pedido}&produto=${id}&qtd=${carrinho[id]}&f=json`
+        request.open('POST', url)
+        request.responseType = 'json'
+        request.send()
+        console.log('item adicionado')
+    }
+    gerarBoleto(pedido)
+}
+
+function gerarBoleto(pedido){
+    var request = new XMLHttpRequest()
+
+        let url = `http://loja.buiar.com/?key=8t4b2j&c=boleto&t=listar&id=${pedido}&f=json`
+        request.open('POST', url)
+        request.responseType = 'json'
+        request.send()
+        console.log(request.response)
+        console.log('Boleto gerado')
 }
