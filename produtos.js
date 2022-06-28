@@ -170,7 +170,6 @@ function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.getAttribute('dataid'))
 }
 
-
 let carrinho = {}
 
 function mostrarCarrinho() {
@@ -202,6 +201,7 @@ function gerarCarrinho() {
             </td>
         </tr>`
     }
+    items += `<a href="confirmacaoPedido.html">Confirmar pedido </a>`
     document.getElementById("tabelaCarrinho").innerHTML = items
 }
 
