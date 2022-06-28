@@ -207,10 +207,72 @@ function gerarCarrinho() {
 
 function confirmarPedido() {
 
-    document.getElementById('paginaProdutos').style.display = 'none'
     document.getElementById('paginaConfirmacao').style.display = 'block'
 
+}
 
+function abrirConfirmacaoPedido() {
+
+    console.log('entrou')
+    document.getElementById('paginaConfirmacao').style.display = 'none'
+    document.getElementById('paginaProdutos').style.display = 'none'
+    document.getElementById('paginaCarrinho').style.display = 'none'
+    document.getElementById('confirmacaoDados').style.display = 'block'
+
+    let dados = document.getElementById('confirmacaoDados')
+
+    let nome = document.createElement('p')
+    nome.innerText = document.getElementById('name').value
+    let cpf = document.createElement('p')
+    cpf.innerText = document.getElementById('cpf').value
+    let cep = document.createElement('p')
+    cep.innerText = document.getElementById('cep').value
+    let logradouro = document.createElement('p') 
+    logradouro.innerText = document.getElementById('logradouro').value
+    let bairro = document.createElement('p') 
+    bairro.innerText = document.getElementById('bairro').value
+    let cidade = document.createElement('p') 
+    cidade.innerText = document.getElementById('cidade').value
+    let uf = document.createElement('p')
+    uf.innerText = document.getElementById('uf').value
+    let complemento = document.createElement('p')
+    complemento.innerText = document.getElementById('complemento').value
+    let botao = document.createElement('button')
+    botao.innerHTML = 'Confirmar dados'
+    botao.setAttribute("onclick", "enviarPedido()")
+    
+    let items = ``
+    let preco = 0
+
+    for (let [id, quantidade] of Object.entries(carrinho)) {
+        item = produtos[id]
+        preco += parseInt(item.preco)
+        items += `
+        <tr>
+            <td><img height="25px" src="${item.imagem}"></td>
+            <td>${item.nome}</td>
+            <td>${quantidade}</td>
+        </tr>`
+    }
+
+    let listaItens = document.createElement('tr')
+    listaItens.innerHTML = items
+
+    let precoP = document.createElement('p')
+    complemento.innerText = 'Preco: ' + preco
+
+    dados.appendChild(nome)
+    dados.appendChild(cpf)
+    dados.appendChild(cep)
+    dados.appendChild(logradouro)
+    dados.appendChild(bairro)
+    dados.appendChild(cidade)
+    dados.appendChild(uf)
+    dados.appendChild(complemento)
+    dados.appendChild(listaItens)
+    dados.appendChild(precoP)
+    dados.appendChild(botao)
+    
 }
 
 function carrinhoAdicionarItem(id) {
@@ -268,6 +330,7 @@ function enviarPedido () {
 
     criarRequestPedido(url)
     limparCamposPedido()
+    console.log("Pedido enviado")
 
 }
 
