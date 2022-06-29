@@ -68,6 +68,15 @@ function listarProdutos () {
 
 }
 
+function listarPedidos () {
+
+    var url = 'http://loja.buiar.com/?key=8t4b2j&c=pedido&t=listar&f=json'
+
+    criarRequest(url, 'pedidos')
+    limparCampos()
+
+}
+
 function incluirCategoria () {
 
     var nome = document.getElementById('nomeCategoriaIncluir').value.toString()
@@ -177,6 +186,9 @@ function criarRequest (url, nome) {
                 else if (nome == 'produtos')
                     gerarTabela(request.response, 'produtos')
 
+                else if (nome == 'pedidos')
+                    gerarTabela(request.response, 'pedidos')
+
                 else console.log(request)
 
             } 
@@ -232,7 +244,7 @@ function gerarTabela (response, tipo) {
     atributos.appendChild(idAtributo)
     atributos.appendChild(nomeAtributo)
 
-    if( tipo == 'produtos') {
+    if ( tipo == 'produtos') {
 
         let codigoAtributo = document.createElement('th')
         let categoriaAtributo = document.createElement('th')
@@ -254,6 +266,37 @@ function gerarTabela (response, tipo) {
         atributos.appendChild(precoAtributo)
         atributos.appendChild(imagemAtributo)
         atributos.appendChild(pesoAtributo)
+
+    }
+
+    else if (tipo == 'pedidos') {
+
+        let cpfA = document.createElement('th')
+        let cepA = document.createElement('th')
+        let ruaA = document.createElement('th')
+        let numeroA = document.createElement('th')
+        let complementoA = document.createElement('th')
+        let bairroA = document.createElement('th')
+        let cidadeA = document.createElement('th')
+        let ufA = document.createElement('th')
+
+        cpfA.innerText = 'CPF'
+        cepA.innerText = 'CEP'
+        ruaA.innerText = 'Rua'
+        numeroA.innerText = 'Numero'
+        complementoA.innerText = 'Complemento'
+        bairroA.innerText = 'Bairro'
+        cidadeA.innerText = 'Cidade'
+        ufA.innerText = 'UF'
+
+        atributos.appendChild(cpfA)
+        atributos.appendChild(cepA)
+        atributos.appendChild(ruaA)
+        atributos.appendChild(numeroA)
+        atributos.appendChild(complementoA)
+        atributos.appendChild(bairroA)
+        atributos.appendChild(cidadeA)
+        atributos.appendChild(ufA)
 
     }
 
@@ -291,6 +334,37 @@ function gerarTabela (response, tipo) {
             tr.appendChild(preco)
             tr.appendChild(imagem)
             tr.appendChild(peso)
+
+        }
+
+        else if (tipo == 'pedidos') {
+
+            let cpf = document.createElement('td')
+            let cep = document.createElement('td')
+            let rua = document.createElement('td')
+            let numero = document.createElement('td')
+            let complemento = document.createElement('td')
+            let bairro = document.createElement('td')
+            let cidade = document.createElement('td')
+            let uf = document.createElement('td')
+
+            cpf.innerText = dados[i].cpf
+            cep.innerText = dados[i].cep
+            rua.innerText = dados[i].rua
+            numero.innerText = dados[i].numero
+            complemento.innerText = dados[i].complemento
+            bairro.innerText = dados[i].bairro
+            cidade.innerText = dados[i].cidade
+            uf.innerText = dados[i].uf
+
+            tr.appendChild(cpf)
+            tr.appendChild(cep)
+            tr.appendChild(rua)
+            tr.appendChild(numero)
+            tr.appendChild(complemento)
+            tr.appendChild(bairro)
+            tr.appendChild(cidade)
+            tr.appendChild(uf)
 
         }
 
