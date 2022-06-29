@@ -29,6 +29,8 @@ function converterEntradaNumerica(valor) {
     valor = valor.replace(/,/g, ".")
     valor = valor.replace(/[^\d.]/g, "")
 
+    console.log(valor)
+
     return Number(valor)
 
 }
@@ -216,7 +218,7 @@ function formatarLocalizado(valor, monetario) {
     valor = Number(valor)
     opcoes = {
 
-        minimumFractionDigits: 3
+        minimumFractionDigits: 2
     }
 
     if (monetario) {

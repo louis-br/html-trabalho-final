@@ -168,7 +168,8 @@ button {
     border-radius: 3px;
     padding: 2px 4vw;
     position: absolute;
-    left: 44.2%;
+    left: 41%;
+    width: 18%;
     cursor: pointer;
 }
 
@@ -312,7 +313,7 @@ body{
 
 .divProdutos {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     grid-gap: 10px;
     text-align: center;
     margin-top: 2.5vh;
@@ -326,10 +327,11 @@ body{
 }
 
 #confirmacaoDados{
-    text-align: center;
+    text-align: left;
     position: absolute;
     left: 19vw;
     min-height: 60vh;
+    min-width: 100vw;
 }
 
 #paginaConfirmacao {
@@ -370,3 +372,25 @@ a:hover#linkBoleto {
     position: absolute;
 }
 
+#tabelaPedido{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.preco{
+    margin: 0 0 1vh 0;
+}
+
+.idPedido{
+    width: 30% !important;
+    height: 3.5vh;
+    margin-left: 35%;
+    margin-right: 35%;
+    padding: 0;
+    margin-top: 1vh;
+    left: 0;
+}
+
+#pedido{
+    min-height: 50vh;
+}

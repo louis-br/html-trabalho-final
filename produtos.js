@@ -17,6 +17,10 @@ var requestCategorias = new XMLHttpRequest()
     
     }
 
+window.onload = function() {
+   carregarProdutos();
+};
+
 function gerarCategorias (response, tipo) {
 
     let lista = document.getElementById(tipo)
@@ -102,12 +106,12 @@ function gerarProdutos (response, tipo, idCategoria) {
     let dados = response.dados
 
     for (let i = 0; i < dados.length; i++) {
-
-        {
-            let id = Number(dados[i].id)
-            produtos[id] = dados[i]
+        for (let i = 0; i < dados.length; i++) {
+            {
+                let id = Number(dados[i].id)
+                produtos[id] = dados[i]
+            }
         }
-
         if(dados[i].categoria == idCategoria) {
 
             let div = document.createElement('div')
@@ -128,7 +132,7 @@ function gerarProdutos (response, tipo, idCategoria) {
             image.setAttribute('src', dados[i].imagem)
             image.setAttribute('alt', 'Image could not be loaded')
             image.setAttribute('class', 'product')
-            p.innerText = dados[i].nome + " - Preço: R$ " + dados[i].preco
+            p.innerText = dados[i].nome + " - Preço: R$ " + Number(dados[i].preco).toFixed(2)
             produtos.appendChild(div)
 
         }
@@ -189,7 +193,7 @@ function gerarCarrinho() {
         <th>Excluir</th>
     </tr>`
     for (let [id, quantidade] of Object.entries(carrinho)) {
-        item = produtos[id]
+        let item = produtos[id]
         let preco = parseFloat(item.preco * carrinho[id])
         items += `
         <tr id="modeloItem">
@@ -209,7 +213,7 @@ function gerarCarrinho() {
                 <button name="excluirItem" style="position:static;" onclick="carrinhoExcluirItem(${id})">X</button>
             </td>
             <td>
-                ${preco}
+                ${Number(preco).toFixed(2)}
             </td>
         </tr>`
     }
@@ -281,7 +285,8 @@ function abrirConfirmacaoPedido() {
     listaItens.innerHTML = items
 
     let precoP = document.createElement('p')
-    precoP.innerText = 'Preco: ' + preco
+    precoP.innerText = 'Preço: R$' + Number(preco).toFixed(2)
+    precoP.setAttribute('class', 'preco')
 
     dados.appendChild(nome)
     dados.appendChild(cpf)
@@ -427,4 +432,83 @@ function gerarBoleto(pedido){
     let url = `http://loja.buiar.com/?key=8t4b2j&c=boleto&t=listar&id=${pedido}&f=json`
 
     document.getElementById('linkBoleto').href = url
+}
+
+function carregarProdutos(){
+    let url = 'http://loja.buiar.com/?key=8t4b2j&c=produto&t=listar&f=json';
+    let request = new XMLHttpRequest();
+    request.open('GET', url);
+    request.responseType = 'json';
+    request.send();
+
+    request.onload = function(){
+        let dados = request.response.dados
+        for (let i = 0; i < dados.length; i++) {
+            {
+                let id = Number(dados[i].id)
+                produtos[id] = dados[i]
+            }
+        }
+        console.log('Produtos Carregados')
+    }
+}
+
+function listarItensPedidoCliente() {
+
+    id = document.getElementById('idPedido').value
+    var url = `http://loja.buiar.com/?key=8t4b2j&c=item&t=listar&f=json&pedido=${id}`
+
+    criarRequestPedidos(url)
+
+}
+
+function criarRequestPedidos (url) {
+
+    var request = new XMLHttpRequest()
+
+    request.open('POST', url)
+    request.responseType = 'json'
+    request.onreadystatechange = function () {
+        if (request.readyState === XMLHttpRequest.DONE) {
+            gerarPedidos(request.response)
+        }
+    }
+
+    request.send()
+
+}
+
+function gerarPedidos (response, idPedido) {
+
+    limparPedidos()
+    pedidos = document.getElementById('divPedidos')
+    let dados = response.dados
+    let total = 0
+
+    let items = `
+    <tr>
+        <th>Imagem</th>
+        <th>Nome</th>
+        <th>Preço</th>
+        <th>Quantidade</th>
+    </tr>`
+
+    for (let i = 0; i < dados.length; i++) {
+        let prod = produtos[dados[i].produto]
+        total += parseFloat(prod.preco* dados[i].qtd)
+
+        items += `
+        <tr id="modeloItem">
+            <td name="iconeItem"><img height="25px" src="${prod.imagem}"></td>
+            <td name="nomeItem">${prod.nome}</td>
+            <td name="precoItem">R$${Number(prod.preco).toFixed(2)}</td>
+            <td name="quantidadeItem">${dados[i].qtd}</td>
+        </tr>`
+    }
+    items += `<tr><td colspan="4" style="text-align: center">Total: R$${Number(total).toFixed(2)}</td></tr>`
+    document.getElementById("tabelaPedido").innerHTML = items
+}
+
+function limparPedidos(){
+    pedidos = document.getElementById('divPedidos').innerHTML = ""
 }
