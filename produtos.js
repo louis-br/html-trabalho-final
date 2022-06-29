@@ -183,7 +183,9 @@ function gerarCarrinho() {
         <th>Imagem</th>
         <th>Nome</th>
         <th>Quantidade</th>
+        <th>+</th>
         <th>Alterar</th>
+        <th>-</th>
         <th>Excluir</th>
     </tr>`
     for (let [id, quantidade] of Object.entries(carrinho)) {
@@ -270,14 +272,12 @@ function abrirConfirmacaoPedido() {
         let item = produtos[id]
         preco += parseInt(item.preco * Number(carrinho[id]))
         items += `
-        <tr>
-            <td><img height="25px" src="${item.imagem}">&nbsp</td>
-            <td>${item.nome}&nbsp</td>
-            <td>${quantidade}</td>
-        </tr>`
+        <li>
+            <img height="25px" src="${item.imagem}">&nbsp${item.nome}&nbsp${quantidade}
+        </li>`
     }
 
-    let listaItens = document.createElement('tr')
+    let listaItens = document.createElement('ul')
     listaItens.innerHTML = items
 
     let precoP = document.createElement('p')
@@ -416,8 +416,14 @@ function processarPedido(pedido){
 
 function gerarBoleto(pedido){
     document.getElementById('confirmacaoDados').style.display = 'none'
-    let boleto = document.getElementById('Boleto')
-    boleto.style.display = 'block'
+    let fimPedido = document.getElementById('fimPedido')
+    fimPedido.style.display = 'block'
+
+    let codigo = document.createElement('p')
+    codigo.innerHTML = 'ID do Pedido: ' + pedido
+    codigo.setAttribute('class', 'confirmDados')
+
+    fimPedido.appendChild(codigo)
     let url = `http://loja.buiar.com/?key=8t4b2j&c=boleto&t=listar&id=${pedido}&f=json`
 
     document.getElementById('linkBoleto').href = url

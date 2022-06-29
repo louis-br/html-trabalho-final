@@ -43,6 +43,7 @@ h1 {
     color: #FFD369;
     font-size: 2vw;
     text-align: center;
+    margin: 0 0 0 0;
 }
 
 h2 {
@@ -218,14 +219,10 @@ li:hover {
     
 }
 
-#paginaConfirmacao {
-    display: none;
-}
-
 #paginaCarrinho {
     display: none;
     text-align: center;
-    margin-top: 4vh;
+    margin-top: 1vh;
 }
 
 .carrinho{
@@ -255,7 +252,6 @@ li:hover {
 
 input[type=text], input[type=number]{
     width: 100%;
-    margin: 8px 0;
     display: inline-block;
     border: 1px solid black;
     border-radius: 4px;
@@ -273,6 +269,7 @@ input[type=text], input[type=number]{
     color: black;
     left: 40%;
     position: absolute;
+    margin-top: 1vmin;
 }
 
 .submit:hover {
@@ -283,8 +280,6 @@ input[type=text], input[type=number]{
     max-height: 50vh;
     min-height: 50vh;
     min-width: 100vh;
-    border-radius: 5px;
-    padding: 20px;
     width: 70%;
     margin-left: auto;
     margin-right: auto;
@@ -293,13 +288,14 @@ input[type=text], input[type=number]{
 label {
     
     text-align: left;
+    font-size: 2vmin;
     
 }
 footer{
-    bottom: 1vh;
+    bottom: 0;
     min-width: 100vw;
     padding-left: 0px;
-    position: absolute;
+    position: fixed;
     left: 0;
 }
 
@@ -332,13 +328,38 @@ body{
 #confirmacaoDados{
     text-align: center;
     position: absolute;
-    left: 38.8vw;
+    left: 19vw;
     min-height: 60vh;
+}
+
+#paginaConfirmacao {
+    display: none;
+    max-height: 60vh;
+    min-height: 20vh;
+}
+
+#fimPedido{
+    text-align: center;
+    position: absolute;
+    margin-top: 5vh;
+    left: 19vw;
+    min-height: 60vh;
+}
+#linkBoleto{
+    color: #fffaf0;
+    font-size: 1.3vw;
+    margin-bottom: 2vh;
+    text-decoration: none;
+}
+
+a:hover#linkBoleto {
+    color: #FFD369;
 }
 
 .confirmDados{
     text-align: left;
     margin: 0 0 1.5vmin 0;
+    text-indent: 0;
 }
 
 .botaoConfirm{
@@ -348,3 +369,4 @@ body{
     left: 0vw;
     position: absolute;
 }
+
