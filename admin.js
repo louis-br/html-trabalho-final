@@ -7,6 +7,14 @@ var requestCategorias = new XMLHttpRequest()
     requestCategorias.send()
     requestCategorias.onload = function () { carregarListaCategorias() }
 
+var requestPedidosURL = 'http://loja.buiar.com/?key=8t4b2j&c=item&t=listar&f=json'
+
+var requestPedidos = new XMLHttpRequest()
+
+    requestPedidos.open('POST', requestPedidosURL)
+    requestPedidos.responseType = 'json'
+    requestPedidos.send()
+
 function limparTabela (tipo) {
 
     let tabela = document.getElementById(tipo)
@@ -138,7 +146,7 @@ function alterarCategoria () {
     var nome = document.getElementById('nomeCategoriaAlterar').value.toString()
     var url = `http://loja.buiar.com/?key=8t4b2j&c=categoria&t=alterar&id=${id}&nome=${nome}&f=json`
 
-    criarRequest(url, 'alterarCategoria')
+    criarRequest(url, 'alterarCategoria', -1)
     limparCampos()
     listarCategorias()
 
@@ -160,7 +168,7 @@ function alterarProduto () {
 
     var url = `http://loja.buiar.com/?key=8t4b2j&c=produto&t=alterar&id=${id}&nome=${nome}&codigo=${codigo}&descricao=${descricao}&preco=${preco}&imagem=${imagem}&peso=${peso}&categoria=${idCategoria}&f=json`
 
-    criarRequest(url, 'alterarProduto')
+    criarRequest(url, 'alterarProduto', -1)
     limparCampos()
     listarProdutos()
 
@@ -188,6 +196,9 @@ function criarRequest (url, nome) {
 
                 else if (nome == 'pedidos')
                     gerarTabela(request.response, 'pedidos')
+
+                else if (nome == 'listarItensPedido')
+                    gerarPedidos(request.response)
 
                 else console.log(request)
 
@@ -339,6 +350,8 @@ function gerarTabela (response, tipo) {
 
         else if (tipo == 'pedidos') {
 
+            id.setAttribute('onclick', "listarItensPedido(this)")
+
             let cpf = document.createElement('td')
             let cep = document.createElement('td')
             let rua = document.createElement('td')
@@ -367,6 +380,44 @@ function gerarTabela (response, tipo) {
             tr.appendChild(uf)
 
         }
+
+    }
+
+}
+
+function listarItensPedido (element) {
+
+    console.log(element.innerText)
+    var url = `http://loja.buiar.com/?key=8t4b2j&c=item&t=listar&f=json&pedido=${element.innerText}`
+
+    criarRequest(url, 'listarItensPedido')
+
+}
+
+function limparPedidos(){
+
+    pedidos = document.getElementById('divPedidos').innerHTML = ""
+
+}
+
+function gerarPedidos (response, idPedido) {
+
+    limparPedidos()
+
+    pedidos = document.getElementById('divPedidos')
+    let dados = response.dados
+
+    for (let i = 0; i < dados.length; i++) {
+        
+        console.log(dados[i].pedido)
+        let div = document.createElement('div')
+        let p = document.createElement('p')
+
+        div.setAttribute('class', 'column')
+        div.appendChild(p)
+        p.setAttribute('class', 'label')
+        p.innerText = "Produto: " + dados[i].produto + " - " + dados[i].qtd
+        pedidos.appendChild(div)
 
     }
 
