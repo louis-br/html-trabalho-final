@@ -211,14 +211,14 @@ function gerarCarrinho() {
             </td>
         </tr>`
     }
-    items += `<button onclick="confirmarPedido()">Confirmar pedido</button>`
+    items += `<tr><td><button onclick="confirmarPedido()">Confirmar pedido</button></td></tr>`
     document.getElementById("tabelaCarrinho").innerHTML = items
 }
 
 function confirmarPedido() {
-
     document.getElementById('paginaConfirmacao').style.display = 'block'
-
+    document.getElementById('paginaProdutos').style.display = 'none'
+    document.getElementById('menuCategorias').style.display = 'none'
 }
 
 function abrirConfirmacaoPedido() {
@@ -232,35 +232,47 @@ function abrirConfirmacaoPedido() {
     let dados = document.getElementById('confirmacaoDados')
 
     let nome = document.createElement('p')
-    nome.innerText = document.getElementById('name').value
+    nome.setAttribute('class', 'confirmDados')
+    nome.innerText ='Nome: ' + document.getElementById('name').value
     let cpf = document.createElement('p')
-    cpf.innerText = document.getElementById('cpf').value
+    cpf.setAttribute('class', 'confirmDados')
+    cpf.innerText ='CPF: ' + document.getElementById('cpf').value
     let cep = document.createElement('p')
-    cep.innerText = document.getElementById('cep').value
-    let logradouro = document.createElement('p') 
-    logradouro.innerText = document.getElementById('logradouro').value
+    cep.setAttribute('class', 'confirmDados')
+    cep.innerText ='CEP: ' + document.getElementById('cep').value
+    let logradouro = document.createElement('p')
+    logradouro.setAttribute('class', 'confirmDados') 
+    logradouro.innerText ='Rua: ' + document.getElementById('logradouro').value
     let bairro = document.createElement('p') 
-    bairro.innerText = document.getElementById('bairro').value
+    bairro.setAttribute('class', 'confirmDados')
+    bairro.innerText ='Bairro: ' + document.getElementById('bairro').value
     let cidade = document.createElement('p') 
-    cidade.innerText = document.getElementById('cidade').value
+    cidade.setAttribute('class', 'confirmDados')
+    cidade.innerText ='Cidade: ' + document.getElementById('cidade').value
     let uf = document.createElement('p')
-    uf.innerText = document.getElementById('uf').value
+    uf.setAttribute('class', 'confirmDados')
+    uf.innerText ='UF: ' + document.getElementById('uf').value
+    let numero = document.createElement('p')
+    numero.setAttribute('class', 'confirmDados')
+    numero.innerText ='Numero: ' +  document.getElementById('numero').value
     let complemento = document.createElement('p')
-    complemento.innerText = document.getElementById('complemento').value
+    complemento.setAttribute('class', 'confirmDados')
+    complemento.innerText ='Complemento: ' +  document.getElementById('complemento').value
     let botao = document.createElement('button')
     botao.innerHTML = 'Confirmar dados'
     botao.setAttribute("onclick", "enviarPedido()")
+    botao.setAttribute('class', 'botaoConfirm')
     
     let items = ``
     let preco = 0
 
     for (let [id, quantidade] of Object.entries(carrinho)) {
-        item = produtos[id]
+        let item = produtos[id]
         preco += parseInt(item.preco * Number(carrinho[id]))
         items += `
         <tr>
-            <td><img height="25px" src="${item.imagem}"></td>
-            <td>${item.nome}</td>
+            <td><img height="25px" src="${item.imagem}">&nbsp</td>
+            <td>${item.nome}&nbsp</td>
             <td>${quantidade}</td>
         </tr>`
     }
@@ -269,7 +281,7 @@ function abrirConfirmacaoPedido() {
     listaItens.innerHTML = items
 
     let precoP = document.createElement('p')
-    complemento.innerText = 'Preco: ' + preco
+    precoP.innerText = 'Preco: ' + preco
 
     dados.appendChild(nome)
     dados.appendChild(cpf)
@@ -278,6 +290,7 @@ function abrirConfirmacaoPedido() {
     dados.appendChild(bairro)
     dados.appendChild(cidade)
     dados.appendChild(uf)
+    dados.appendChild(numero)
     dados.appendChild(complemento)
     dados.appendChild(listaItens)
     dados.appendChild(precoP)

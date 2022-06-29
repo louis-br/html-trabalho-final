@@ -3,18 +3,19 @@
     <head>
         <link rel="stylesheet" href="styles.css">
         <script src="produtos.js"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>HW Decks - Sobre</title>
     </head>
     <body>
         <!--MENU-->
-        <div id="menu" name="menu">
+        <div id="menu" name="divMenu">
             <a href="index.html" class="title"><h1 class="title"><img src="Images/logoPrincipal.jpg" height="50px"/>HW Decks</h1></a>
             <a href="produtos.html" class="menu">Produtos</a>
             <a href="pedidos.html" class="menu">Pedidos</a>
             <a href="sobre.html" class="menu">Sobre</a>
             <a href="contato.html" class="menu">Contato</a>
             <a href="admin.html" class="menu">Administração</a>
-            <a href="cadastro.html" class="menu">Cadastro</a>
         </div>
         <!--MENU_END-->
         <!--BODY-->
@@ -23,7 +24,7 @@
 
         <button id="carrinho" onclick="mostrarCarrinho()" ondrop="drop(event)" ondragover="allowDrop(event)"><img src="Images/carrinho.svg"></button>
 
-        <div id="paginaConfirmacao" class="pagina">
+        <div id="paginaConfirmacao" class="pagina"> 
             <h1>Confirmação do pedido</h1>
             <div>
                 <div class="form">
@@ -52,7 +53,7 @@
         </div>
 
         <div id="paginaCarrinho" class="pagina">
-            <p>
+            <p class="carrinho">
                 Items no carrinho:
             </p>
             <table id="tabelaCarrinho">
@@ -74,20 +75,19 @@
                 </tr>
             </table>
         </div>
-
-        <div id="paginaProdutos" class="pagina">
-            <h1>Selecione uma categoria</h1>
+        <nav id="menuCategorias">
+            <h4 id="selCategoria">Selecione uma categoria</h4>
             <div class="divCategorias" id="divCategorias">
                 <ul class="categorias" id="categorias"></ul>
             </div>
-            <div class="divProdutos" id="divProdutos"></div>
-        </div>
-
+        </nav>
+    
+    <div id="paginaProdutos" class="pagina">
+        <div class="divProdutos" id="divProdutos"></div>
+    </div>
         <div id="Boleto" style="display: none">
             <a href="" id="linkBoleto">Boleto</a>
         </div>
-
-        <div id="paginaConfirmacao" style="display: none;"></div>
         
         <div id="confirmacaoDados" style="display: none;"></div>
 
@@ -95,10 +95,15 @@
 
         <!--BODY_END-->
         <!--FOOTER-->
-        <hr>
-        <p>
-            <a href="index.html" class="home"> Home</a>
-        </p>
+        <footer>
+            <hr>
+            <p class="home">
+                <a href="index.html" class="home"> Home</a>
+            </p>
+        </footer>
         <!--FOOTER_END-->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
 </html>
