@@ -347,14 +347,14 @@ body{
     left: 19vw;
     min-height: 60vh;
 }
-#linkBoleto{
+.linkBoleto{
     color: #fffaf0;
     font-size: 1.3vw;
     margin-bottom: 2vh;
     text-decoration: none;
 }
 
-a:hover#linkBoleto {
+a:hover.linkBoleto {
     color: #FFD369;
 }
 
@@ -393,4 +393,5 @@ a:hover#linkBoleto {
 
 #pedido{
     min-height: 50vh;
+    text-align: center;
 }

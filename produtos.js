@@ -478,10 +478,10 @@ function criarRequestPedidos (url) {
 
 }
 
-function gerarPedidos (response, idPedido) {
+function gerarPedidos (response) {
 
     limparPedidos()
-    pedidos = document.getElementById('divPedidos')
+    pedidos = document.getElementById('pedido')
     let dados = response.dados
     let total = 0
 
@@ -507,6 +507,12 @@ function gerarPedidos (response, idPedido) {
     }
     items += `<tr><td colspan="4" style="text-align: center">Total: R$${Number(total).toFixed(2)}</td></tr>`
     document.getElementById("tabelaPedido").innerHTML = items
+
+    let link = document.createElement('a')
+    link.setAttribute('href', `http://loja.buiar.com/?key=8t4b2j&c=boleto&t=listar&id=${dados[0].pedido}&f=json`)
+    link.setAttribute('class', 'linkBoleto')
+    link.innerHTML = 'Boleto'
+    pedidos.appendChild(link)
 }
 
 function limparPedidos(){
