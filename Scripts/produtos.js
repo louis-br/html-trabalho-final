@@ -1,0 +1,522 @@
+let produtos = {}
+
+var requestCategoriasURL = 'http://loja.buiar.com/?key=8t4b2j&c=categoria&t=listar&f=json'
+
+var requestCategorias = new XMLHttpRequest()
+
+    requestCategorias.open('POST', requestCategoriasURL)
+    requestCategorias.responseType = 'json'
+    requestCategorias.send()
+    requestCategorias.onload = function () { gerarCategorias(requestCategorias.response, 'categorias') }
+
+    function listarCategorias () {
+
+        var url = 'http://loja.buiar.com/?key=8t4b2j&c=categoria&t=listar&f=json'
+    
+        criarRequest(url, 'categorias')
+    
+    }
+
+window.onload = function() {
+   carregarProdutos();
+};
+
+function gerarCategorias (response, tipo) {
+
+    let lista = document.getElementById(tipo)
+    let dados = response.dados
+
+    for (let i = 0; i < dados.length; i++) {
+
+        let nome = document.createElement('li')
+        let idCategoria = document.createElement('li')
+
+        lista.appendChild(nome)
+        lista.appendChild(idCategoria)
+        nome.innerText = dados[i].nome 
+        idCategoria.innerText = dados[i].id 
+        idCategoria.setAttribute('class', 'categorias')
+        nome.setAttribute('class', 'categorias')
+        nome.setAttribute('onclick', "listarProdutos(this)")
+        idCategoria.setAttribute('hidden', 'hidden')
+
+    }
+
+}
+
+function criarRequest (url, nome, idCategoria) {
+
+    var request = new XMLHttpRequest()
+
+    request.open('POST', url)
+    request.responseType = 'json'
+    request.onreadystatechange = function () {
+
+        if (request.readyState === XMLHttpRequest.DONE) {
+
+            var status = request.status;
+
+            if (status === 0 || (status >= 200 && status < 400)) {
+
+                if (nome == 'categorias')
+                    gerarCategorias(request.response, 'categorias')
+
+                else if (nome == 'produtos')
+                    gerarProdutos(request.response, 'produtos', idCategoria)
+
+                else console.log(request)
+
+            } 
+
+        }
+    }
+
+    request.send()
+
+}
+
+function listarProdutos (element) {
+
+    var url = 'http://loja.buiar.com/?key=8t4b2j&c=produto&t=listar&f=json'
+
+    criarRequest(url, 'produtos', resgatarIdCategoria(element.innerText))
+
+}
+
+function resgatarIdCategoria (name) {
+
+    let data = requestCategorias.response.dados
+    
+    for (let i = 0; i < data.length; i++) {
+
+        if(data[i].nome == name)
+            return data[i].id
+
+    }
+
+    return -1
+
+}
+
+function gerarProdutos (response, tipo, idCategoria) {
+
+    limparProdutos()
+
+    produtos = document.getElementById('divProdutos')
+    let dados = response.dados
+
+    for (let i = 0; i < dados.length; i++) {
+        for (let i = 0; i < dados.length; i++) {
+            {
+                let id = Number(dados[i].id)
+                produtos[id] = dados[i]
+            }
+        }
+        if(dados[i].categoria == idCategoria) {
+
+            let div = document.createElement('div')
+            let image = document.createElement('img')
+            let p = document.createElement('p')
+            
+            for (let e of [div, image]) {
+                e.setAttribute('dataid', dados[i].id)
+                e.setAttribute('draggable', true)
+                e.addEventListener('dragstart', drag)
+            }
+            image.addEventListener('dblclick', duploClick)
+
+            div.setAttribute('class', 'column')
+            div.appendChild(p)
+            div.appendChild(image)
+            p.setAttribute('class', 'label')
+            image.setAttribute('src', dados[i].imagem)
+            image.setAttribute('alt', 'Image could not be loaded')
+            image.setAttribute('class', 'product')
+            p.innerText = dados[i].nome + " - Preço: R$ " + Number(dados[i].preco).toFixed(2)
+            produtos.appendChild(div)
+
+        }
+
+    }
+
+}
+
+function limparProdutos () {
+
+    document.getElementById('divProdutos').innerHTML = ""
+
+}
+
+function mostrarPagina(pagina) {
+    for (let p of document.getElementsByClassName('pagina')) {
+        p.style.display = "none"
+        if (p.id == `pagina${pagina}`) {
+            p.style.display = "block"
+        }
+    }
+}
+
+function duploClick(ev) {
+    carrinhoAdicionarItem(ev.target.getAttribute('dataid'))
+}
+
+function allowDrop(ev) {
+    ev.preventDefault()
+}
+
+function drop(ev) {
+    ev.preventDefault()
+    let data = ev.dataTransfer.getData("text")
+    carrinhoAdicionarItem(data)
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.getAttribute('dataid'))
+}
+
+let carrinho = {}
+
+function mostrarCarrinho() {
+    let pagina = document.getElementById('paginaCarrinho')
+    pagina.style.display = pagina.style.display == "block" ? "none" : "block"
+}
+
+function gerarCarrinho() {
+    let items = `
+    <tr>
+        <th>Imagem</th>
+        <th>Nome</th>
+        <th>Quantidade</th>
+        <th>+</th>
+        <th>Alterar</th>
+        <th>-</th>
+        <th>Excluir</th>
+    </tr>`
+    for (let [id, quantidade] of Object.entries(carrinho)) {
+        let item = produtos[id]
+        let preco = parseFloat(item.preco * carrinho[id])
+        items += `
+        <tr id="modeloItem">
+            <td name="iconeItem"><img height="25px" src="${item.imagem}"></td>
+            <td name="nomeItem">${item.nome}</td>
+            <td name="quantidadeItem">${quantidade}</td>
+            <td>
+                <input type="button" name="plus-button" onClick="carrinhoAdd(${id})" value="+"></button>
+            </td>
+            <td>
+                <input type="number" name="alterarQuantidadeItem" onchange="carrinhoAlterarItem(event, ${id})" placeholder="${quantidade}">
+            </td>
+            <td>
+                <input type="button" name="minus-button" onClick="carrinhoSub(${id})" value="-"></button>
+            </td>
+            <td>
+                <button name="excluirItem" style="position:static;" onclick="carrinhoExcluirItem(${id})">X</button>
+            </td>
+            <td>
+                ${Number(preco).toFixed(2)}
+            </td>
+        </tr>`
+    }
+    items += `<tr><td><button onclick="confirmarPedido()" id="botaoConfirmarPedido">Confirmar pedido</button></td></tr>`
+    document.getElementById("tabelaCarrinho").innerHTML = items
+}
+
+function confirmarPedido() {
+    document.getElementById('paginaConfirmacao').style.display = 'block'
+    document.getElementById('paginaProdutos').style.display = 'none'
+    document.getElementById('menuCategorias').style.display = 'none'
+}
+
+function abrirConfirmacaoPedido() {
+
+    console.log('entrou')
+    document.getElementById('paginaConfirmacao').style.display = 'none'
+    document.getElementById('paginaProdutos').style.display = 'none'
+    document.getElementById('paginaCarrinho').style.display = 'none'
+    document.getElementById('confirmacaoDados').style.display = 'block'
+
+    let dados = document.getElementById('confirmacaoDados')
+
+    let tabela = `
+    <tr>
+        <th><br></th>
+        <th><br></th>
+    </tr>`
+
+    let nome = document.getElementById('name').value
+    tabela += `<tr> <td> Nome: </td><td> ${nome}</td></tr>`
+    let cpf = document.getElementById('cpf').value
+    tabela += `<tr> <td> CPF: </td><td> ${cpf}</td></tr>`
+    let cep = document.getElementById('cep').value
+    tabela += `<tr> <td> CEP: </td><td> ${cep}</td></tr>`
+    let logradouro = document.getElementById('logradouro').value
+    tabela += `<tr> <td> Rua: </td><td> ${logradouro}</td></tr>`
+    let bairro = document.getElementById('bairro').value
+    tabela += `<tr> <td> Bairro: </td><td> ${bairro}</td></tr>`
+    let cidade = document.getElementById('cidade').value
+    tabela += `<tr> <td> Cidade: </td><td> ${cidade}</td></tr>`
+    let uf = document.getElementById('uf').value
+    tabela += `<tr> <td> UF: </td><td> ${uf}</td></tr>`
+    let numero = document.getElementById('numero').value
+    tabela += `<tr> <td> Numero: </td><td> ${numero}</td></tr>`
+    let complemento = document.getElementById('complemento').value
+    tabela += `<tr> <td> COmplemento: </td><td> ${complemento}</td></tr>`
+    document.getElementById("tabelaConfirmacao").innerHTML = tabela
+
+    
+    let items = ``
+    let preco = 0
+
+    for (let [id, quantidade] of Object.entries(carrinho)) {
+        let item = produtos[id]
+        preco += parseInt(item.preco * Number(carrinho[id]))
+        items += `
+        <li>
+            <img height="25px" src="${item.imagem}">&nbsp${item.nome}&nbsp${quantidade}
+        </li>`
+    }
+
+    let listaItens = document.createElement('ul')
+    listaItens.innerHTML = items
+
+    let precoP = document.createElement('p')
+    precoP.innerText = 'Preço: R$' + Number(preco).toFixed(2)
+    precoP.setAttribute('class', 'preco')
+
+    let botao = document.createElement('button')
+    botao.innerHTML = 'Confirmar dados'
+    botao.setAttribute("onclick", "enviarPedido()")
+    botao.setAttribute('class', 'botaoConfirm')
+
+    dados.appendChild(listaItens)
+    dados.appendChild(precoP)
+    dados.appendChild(botao)
+    
+}
+
+function carrinhoAdicionarItem(id) {
+    id = Number(id)
+    if ((id in produtos)) {
+        carrinho[id] = carrinho[id] + 1 || 1
+    }
+    gerarCarrinho()
+}
+
+function carrinhoAdd(id){
+    id = Number(id)
+    carrinho[id] = carrinho[id] + 1
+    gerarCarrinho()
+}
+
+function carrinhoSub(id){
+    id = Number(id)
+    carrinho[id] = carrinho[id] - 1
+    if(carrinho[id] <= 0)
+    {
+        delete carrinho[id]
+    }
+    gerarCarrinho()
+}
+
+function carrinhoAlterarItem(ev, id) {
+    carrinho[id] = Number(ev.target.value)
+    if (carrinho[id] <= 0) {
+        delete carrinho[id]
+    }
+    gerarCarrinho()
+}
+
+function carrinhoExcluirItem(id) {
+    delete carrinho[id]
+    gerarCarrinho()
+}
+
+function limparCarrinho(){
+    for (let [id, quantidade] of Object.entries(carrinho)) {
+        carrinhoExcluirItem(id)
+    }
+    document.getElementById('botaoConfirmarPedido').remove()
+}
+
+function buscarCep() {
+	let url = 'https://viacep.com.br/ws/' + cep.value + '/json';
+    console.log("acessando " + url);
+    let request = new XMLHttpRequest();
+    request.open('GET', url);
+    request.responseType = 'json';
+    request.send();
+    request.onload = function() {
+  	    let data = request.response;
+        console.log()
+        logradouro.value = data.logradouro;
+        logradouro.setAttribute('readonly', 'readonly')
+        bairro.value = data.bairro;
+        bairro.setAttribute('readonly', 'readonly')
+        cidade.value = data.localidade;
+        cidade.setAttribute('readonly', 'readonly')
+        uf.value = data.uf;
+        uf.setAttribute('readonly', 'readonly')
+    };
+	
+} 
+
+function enviarPedido () {
+
+    let nome = document.getElementById('name').value 
+    let cpf = document.getElementById('cpf').value 
+    let cep = document.getElementById('cep').value 
+    let logradouro = document.getElementById('logradouro').value 
+    let bairro = document.getElementById('bairro').value 
+    let cidade = document.getElementById('cidade').value 
+    let uf = document.getElementById('uf').value 
+    let numero = document.getElementById('numero').value 
+    let complemento = document.getElementById('complemento').value 
+
+    let url = `http://loja.buiar.com/?key=8t4b2j&c=pedido&t=inserir&nome=${nome}&cpf=${cpf}&cep=${cep}&rua=${logradouro}&bairro=${bairro}&cidade=${cidade}&uf=${uf}&numero=${numero}&complemento=${complemento}&f=json`
+
+    criarRequestPedido(url)
+    limparCamposPedido()
+    console.log("Pedido enviado")
+
+}
+
+function criarRequestPedido (url) {
+
+    var request = new XMLHttpRequest()
+
+    request.open('POST', url)
+    request.responseType = 'json'
+    request.send()
+    request.onload = function(){
+        processarPedido(this.response.dados.id);
+    }
+
+}
+
+function limparCamposPedido () {
+
+    document.getElementById('name').value = ''
+    document.getElementById('cpf').value = ''
+    document.getElementById('cep').value = ''
+    document.getElementById('logradouro').value = '' 
+    document.getElementById('bairro').value = ''
+    document.getElementById('cidade').value = ''
+    document.getElementById('uf').value = ''
+    document.getElementById('numero').value = ''
+    document.getElementById('complemento').value = '' 
+
+}
+
+function processarPedido(pedido){
+    
+    for (let [id, quantidade] of Object.entries(carrinho)) {
+        var request = new XMLHttpRequest()
+
+        let url = `http://loja.buiar.com/?key=8t4b2j&c=item&t=inserir&pedido=${pedido}&produto=${id}&qtd=${carrinho[id]}&f=json`
+        request.open('POST', url)
+        request.responseType = 'json'
+        request.send()
+    }
+    gerarBoleto(pedido)
+}
+
+function gerarBoleto(pedido){
+    document.getElementById('confirmacaoDados').style.display = 'none'
+    let fimPedido = document.getElementById('fimPedido')
+    fimPedido.style.display = 'block'
+
+    let codigo = document.createElement('p')
+    codigo.innerHTML = 'ID do Pedido: ' + pedido
+    codigo.setAttribute('class', 'confirmDados')
+
+    fimPedido.appendChild(codigo)
+    let url = `http://loja.buiar.com/?key=8t4b2j&c=boleto&t=listar&id=${pedido}&f=json`
+
+    document.getElementById('linkBoleto').setAttribute('href' , url)
+
+    limparCarrinho()
+}
+
+function carregarProdutos(){
+    let url = 'http://loja.buiar.com/?key=8t4b2j&c=produto&t=listar&f=json';
+    let request = new XMLHttpRequest();
+    request.open('GET', url);
+    request.responseType = 'json';
+    request.send();
+
+    request.onload = function(){
+        let dados = request.response.dados
+        for (let i = 0; i < dados.length; i++) {
+            {
+                let id = Number(dados[i].id)
+                produtos[id] = dados[i]
+            }
+        }
+        console.log('Produtos Carregados')
+    }
+}
+
+function listarItensPedidoCliente() {
+
+    id = document.getElementById('idPedido').value
+    var url = `http://loja.buiar.com/?key=8t4b2j&c=item&t=listar&f=json&pedido=${id}`
+
+    criarRequestPedidos(url)
+
+}
+
+function criarRequestPedidos (url) {
+
+    var request = new XMLHttpRequest()
+
+    request.open('POST', url)
+    request.responseType = 'json'
+    request.onreadystatechange = function () {
+        if (request.readyState === XMLHttpRequest.DONE) {
+            gerarPedidos(request.response)
+        }
+    }
+    request.send()
+}
+
+function gerarPedidos (response) {
+
+    limparPedidos()
+    pedidos = document.getElementById('pedido')
+    let dados = response.dados
+    let total = 0
+
+    let items = `
+    <tr>
+        <th>Imagem</th>
+        <th>Nome</th>
+        <th>Preço</th>
+        <th>Quantidade</th>
+    </tr>`
+
+    for (let i = 0; i < dados.length; i++) {
+        let prod = produtos[dados[i].produto]
+        total += parseFloat(prod.preco* dados[i].qtd)
+
+        items += `
+        <tr id="modeloItem">
+            <td name="iconeItem"><img height="25px" src="${prod.imagem}"></td>
+            <td name="nomeItem">${prod.nome}</td>
+            <td name="precoItem">R$${Number(prod.preco).toFixed(2)}</td>
+            <td name="quantidadeItem">${dados[i].qtd}</td>
+        </tr>`
+    }
+    items += `<tr><td colspan="4" style="text-align: center">Total: R$${Number(total).toFixed(2)}</td></tr>`
+    document.getElementById("tabelaPedido").innerHTML = items
+    document.getElementById("tabelaPedido").style.display = 'block'
+
+    let link = document.createElement('a')
+    link.setAttribute('href', `http://loja.buiar.com/?key=8t4b2j&c=boleto&t=listar&id=${dados[0].pedido}&f=json`)
+    link.setAttribute('class', 'linkBoleto')
+    link.innerHTML = 'Boleto'
+    pedidos.appendChild(link)
+}
+
+function limparPedidos(){
+    pedidos = document.getElementById('divPedidos').innerHTML = ""
+}
