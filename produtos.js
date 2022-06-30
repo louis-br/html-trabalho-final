@@ -432,9 +432,13 @@ function gerarBoleto(pedido){
     fimPedido.appendChild(codigo)
     let url = `http://loja.buiar.com/?key=8t4b2j&c=boleto&t=listar&id=${pedido}&f=json`
 
+<<<<<<< HEAD
     document.getElementById('linkBoleto').setAttribute('href' , url)
 
     limparCarrinho()
+=======
+    document.getElementById('linkBoleto').setAttribute('href', url)
+>>>>>>> 273d602f479a88353a94653d59ed2eff6dfae44c
 }
 
 function carregarProdutos(){
