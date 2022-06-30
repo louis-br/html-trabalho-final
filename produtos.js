@@ -217,7 +217,7 @@ function gerarCarrinho() {
             </td>
         </tr>`
     }
-    items += `<tr><td><button onclick="confirmarPedido()">Confirmar pedido</button></td></tr>`
+    items += `<tr><td><button onclick="confirmarPedido()" id="botaoConfirmarPedido">Confirmar pedido</button></td></tr>`
     document.getElementById("tabelaCarrinho").innerHTML = items
 }
 
@@ -237,37 +237,32 @@ function abrirConfirmacaoPedido() {
 
     let dados = document.getElementById('confirmacaoDados')
 
-    let nome = document.createElement('p')
-    nome.setAttribute('class', 'confirmDados')
-    nome.innerText ='Nome: ' + document.getElementById('name').value
-    let cpf = document.createElement('p')
-    cpf.setAttribute('class', 'confirmDados')
-    cpf.innerText ='CPF: ' + document.getElementById('cpf').value
-    let cep = document.createElement('p')
-    cep.setAttribute('class', 'confirmDados')
-    cep.innerText ='CEP: ' + document.getElementById('cep').value
-    let logradouro = document.createElement('p')
-    logradouro.setAttribute('class', 'confirmDados') 
-    logradouro.innerText ='Rua: ' + document.getElementById('logradouro').value
-    let bairro = document.createElement('p') 
-    bairro.setAttribute('class', 'confirmDados')
-    bairro.innerText ='Bairro: ' + document.getElementById('bairro').value
-    let cidade = document.createElement('p') 
-    cidade.setAttribute('class', 'confirmDados')
-    cidade.innerText ='Cidade: ' + document.getElementById('cidade').value
-    let uf = document.createElement('p')
-    uf.setAttribute('class', 'confirmDados')
-    uf.innerText ='UF: ' + document.getElementById('uf').value
-    let numero = document.createElement('p')
-    numero.setAttribute('class', 'confirmDados')
-    numero.innerText ='Numero: ' +  document.getElementById('numero').value
-    let complemento = document.createElement('p')
-    complemento.setAttribute('class', 'confirmDados')
-    complemento.innerText ='Complemento: ' +  document.getElementById('complemento').value
-    let botao = document.createElement('button')
-    botao.innerHTML = 'Confirmar dados'
-    botao.setAttribute("onclick", "enviarPedido()")
-    botao.setAttribute('class', 'botaoConfirm')
+    let tabela = `
+    <tr>
+        <th><br></th>
+        <th><br></th>
+    </tr>`
+
+    let nome = document.getElementById('name').value
+    tabela += `<tr> <td> Nome: </td><td> ${nome}</td></tr>`
+    let cpf = document.getElementById('cpf').value
+    tabela += `<tr> <td> CPF: </td><td> ${cpf}</td></tr>`
+    let cep = document.getElementById('cep').value
+    tabela += `<tr> <td> CEP: </td><td> ${cep}</td></tr>`
+    let logradouro = document.getElementById('logradouro').value
+    tabela += `<tr> <td> Rua: </td><td> ${logradouro}</td></tr>`
+    let bairro = document.getElementById('bairro').value
+    tabela += `<tr> <td> Bairro: </td><td> ${bairro}</td></tr>`
+    let cidade = document.getElementById('cidade').value
+    tabela += `<tr> <td> Cidade: </td><td> ${cidade}</td></tr>`
+    let uf = document.getElementById('uf').value
+    tabela += `<tr> <td> UF: </td><td> ${uf}</td></tr>`
+    let numero = document.getElementById('numero').value
+    tabela += `<tr> <td> Numero: </td><td> ${numero}</td></tr>`
+    let complemento = document.getElementById('complemento').value
+    tabela += `<tr> <td> COmplemento: </td><td> ${complemento}</td></tr>`
+    document.getElementById("tabelaConfirmacao").innerHTML = tabela
+
     
     let items = ``
     let preco = 0
@@ -288,15 +283,11 @@ function abrirConfirmacaoPedido() {
     precoP.innerText = 'Preço: R$' + Number(preco).toFixed(2)
     precoP.setAttribute('class', 'preco')
 
-    dados.appendChild(nome)
-    dados.appendChild(cpf)
-    dados.appendChild(cep)
-    dados.appendChild(logradouro)
-    dados.appendChild(bairro)
-    dados.appendChild(cidade)
-    dados.appendChild(uf)
-    dados.appendChild(numero)
-    dados.appendChild(complemento)
+    let botao = document.createElement('button')
+    botao.innerHTML = 'Confirmar dados'
+    botao.setAttribute("onclick", "enviarPedido()")
+    botao.setAttribute('class', 'botaoConfirm')
+
     dados.appendChild(listaItens)
     dados.appendChild(precoP)
     dados.appendChild(botao)
@@ -340,6 +331,13 @@ function carrinhoExcluirItem(id) {
     gerarCarrinho()
 }
 
+function limparCarrinho(){
+    for (let [id, quantidade] of Object.entries(carrinho)) {
+        carrinhoExcluirItem(id)
+    }
+    document.getElementById('botaoConfirmarPedido').remove()
+}
+
 function buscarCep() {
 	let url = 'https://viacep.com.br/ws/' + cep.value + '/json';
     console.log("acessando " + url);
@@ -349,11 +347,15 @@ function buscarCep() {
     request.send();
     request.onload = function() {
   	    let data = request.response;
-  	    console.log(request.response);
+        console.log()
         logradouro.value = data.logradouro;
+        logradouro.setAttribute('readonly', 'readonly')
         bairro.value = data.bairro;
+        bairro.setAttribute('readonly', 'readonly')
         cidade.value = data.localidade;
+        cidade.setAttribute('readonly', 'readonly')
         uf.value = data.uf;
+        uf.setAttribute('readonly', 'readonly')
     };
 	
 } 
@@ -414,7 +416,6 @@ function processarPedido(pedido){
         request.open('POST', url)
         request.responseType = 'json'
         request.send()
-        console.log('item adicionado')
     }
     gerarBoleto(pedido)
 }
@@ -431,7 +432,9 @@ function gerarBoleto(pedido){
     fimPedido.appendChild(codigo)
     let url = `http://loja.buiar.com/?key=8t4b2j&c=boleto&t=listar&id=${pedido}&f=json`
 
-    document.getElementById('linkBoleto').href = url
+    document.getElementById('linkBoleto').setAttribute('href' , url)
+
+    limparCarrinho()
 }
 
 function carregarProdutos(){
@@ -473,9 +476,7 @@ function criarRequestPedidos (url) {
             gerarPedidos(request.response)
         }
     }
-
     request.send()
-
 }
 
 function gerarPedidos (response) {
@@ -507,6 +508,7 @@ function gerarPedidos (response) {
     }
     items += `<tr><td colspan="4" style="text-align: center">Total: R$${Number(total).toFixed(2)}</td></tr>`
     document.getElementById("tabelaPedido").innerHTML = items
+    document.getElementById("tabelaPedido").style.display = 'block'
 
     let link = document.createElement('a')
     link.setAttribute('href', `http://loja.buiar.com/?key=8t4b2j&c=boleto&t=listar&id=${dados[0].pedido}&f=json`)

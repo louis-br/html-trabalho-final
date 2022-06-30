@@ -162,19 +162,17 @@ input {
 
 button {
     background-color: #676767ab;
-    font-size: large;
     color: #1b1b1be0;
     border-style: none;
     border-radius: 3px;
-    padding: 2px 4vw;
     position: absolute;
     left: 41%;
-    width: 18%;
     cursor: pointer;
 }
 
 img.product {
     height: 15vw;
+    width: 15vw;
 }
 
 .row::after {
@@ -186,7 +184,7 @@ img.product {
 p.label {
     text-align: center;
     margin: 0 0 0 0;
-    min-height: 5vh;
+    
 }
 
 li:hover {
@@ -234,6 +232,7 @@ li:hover {
 #tabelaCarrinho{
     margin-left: auto;
     margin-right: auto;
+    width: fit-content;
 }
 
 #carrinho {
@@ -278,12 +277,12 @@ input[type=text], input[type=number]{
 }
 
 .form {
-    max-height: 50vh;
-    min-height: 50vh;
+    min-height: 70vh;
     min-width: 100vh;
     width: 70%;
     margin-left: auto;
     margin-right: auto;
+    height: fit-content;
 }
 
 label {
@@ -300,7 +299,7 @@ footer{
     left: 0;
 }
 
-nav{
+nav#menuCategorias{
     min-width: 15vw;
     max-width: 15vw;
     min-height: 70vh;
@@ -313,7 +312,7 @@ body{
 
 .divProdutos {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 10px;
     text-align: center;
     margin-top: 2.5vh;
@@ -336,16 +335,17 @@ body{
 
 #paginaConfirmacao {
     display: none;
-    max-height: 60vh;
+    max-height: 70vh;
     min-height: 20vh;
 }
 
 #fimPedido{
-    text-align: center;
+    text-align: left;
     position: absolute;
     margin-top: 5vh;
-    left: 19vw;
+    left: 50%;
     min-height: 60vh;
+    min-width: 100vw;
 }
 .linkBoleto{
     color: #fffaf0;
@@ -395,3 +395,14 @@ a:hover.linkBoleto {
     min-height: 50vh;
     text-align: center;
 }
+
+#tabelaPedido{
+    text-align: center;
+    border-color: #777373;
+    background-color: #272424;
+    border-width: 1vmin;
+    border-radius: 5px;
+    width: fit-content;
+}
+
+

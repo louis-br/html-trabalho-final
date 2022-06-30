@@ -15,6 +15,23 @@ var requestPedidos = new XMLHttpRequest()
     requestPedidos.responseType = 'json'
     requestPedidos.send()
 
+var requestProdutosURL = 'http://loja.buiar.com/?key=8t4b2j&c=produto&t=listar&f=json'
+
+var requestProduto = new XMLHttpRequest()
+
+    requestProduto.open('POST', requestProdutosURL)
+    requestProduto.responseType = 'json'
+    requestProduto.send()
+    requestProduto.onload = function(){carregarProdutos()}
+
+
+window.onload = function() {
+    let input = document.getElementById('inputListaProdAlterar')
+    input.addEventListener('change', preencheNome);
+};
+
+let produtos = {}
+
 function limparTabela (tipo) {
 
     let tabela = document.getElementById(tipo)
@@ -38,10 +55,8 @@ function converterEntradaNumerica(valor) {
 function limparCampos () {
 
     document.getElementById('nomeCategoriaIncluir').value = ""
-    document.getElementById('idCategoriaExcluir').value = ""
-    document.getElementById('idCategoriaAlterar').value = ""
+    document.getElementById('inputListaExcluir').value = ""
     document.getElementById('nomeCategoriaAlterar').value = ""
-    document.getElementById('idProduto').value = ""
     document.getElementById('nomeProduto').value = ""
     document.getElementById('codigoProduto').value = ""
     document.getElementById('descricaoProduto').value = ""
@@ -49,14 +64,14 @@ function limparCampos () {
     document.getElementById('imagemProduto').value = ""
     document.getElementById('pesoProduto').value = ""
     document.getElementById('inputLista').value = ""
-    document.getElementById('idProdutoAlterar').value = ""
+    document.getElementById('inputListaProdAlterar').value = ""
     document.getElementById('nomeProdutoAlterar').value = ""
     document.getElementById('codigoProdutoAlterar').value = ""
     document.getElementById('descricaoProdutoAlterar').value = ""
     document.getElementById('precoProdutoAlterar').value = ""
     document.getElementById('imagemProdutoAlterar').value = ""
     document.getElementById('pesoProdutoAlterar').value = ""
-    document.getElementById('inputListaAlterar').value = ""
+    document.getElementById('inputListaCPAlterar').value = ""
 
 }
 
@@ -100,7 +115,6 @@ function incluirCategoria () {
 
 function incluirProduto () {
 
-    var id = document.getElementById('idProduto').value.toString()
     var nome = document.getElementById('nomeProduto').value.toString()
     var codigo = document.getElementById('codigoProduto').value.toString()
     var descricao = document.getElementById('descricaoProduto').value.toString()
@@ -109,10 +123,10 @@ function incluirProduto () {
     var peso = document.getElementById('pesoProduto').value.toString()
     var idCategoria = document.getElementById('inputLista').value.toString()
 
-    preco = converterEntradaNumerica(preco)
-    peso = converterEntradaNumerica(peso)
+    preco = formatarNumeroDotsemMilhar(preco)
+    peso = formatarNumeroDotsemMilhar(peso)
 
-    var url = `http://loja.buiar.com/?key=8t4b2j&c=produto&t=inserir&categoria=${idCategoria}&codigo=${codigo}&nome=${nome}&descricao=${descricao}&peso=${peso}&preco=${preco}&id=${id}&imagem=${imagem}&f=json`
+    var url = `http://loja.buiar.com/?key=8t4b2j&c=produto&t=inserir&categoria=${idCategoria}&codigo=${codigo}&nome=${nome}&descricao=${descricao}&peso=${peso}&preco=${preco}&imagem=${imagem}&f=json`
 
     criarRequest(url, 'incluirProduto')
     limparCampos()
@@ -122,7 +136,7 @@ function incluirProduto () {
 
 function excluirCategoria () {
     
-    var id = document.getElementById('idCategoriaExcluir').value.toString()
+    var id = document.getElementById('inputListaExcluir').value.toString()
     var url = `http://loja.buiar.com/?key=8t4b2j&c=categoria&t=remover&id=${id}&f=json`
     
     criarRequest(url, 'excluirCategoria')
@@ -133,7 +147,7 @@ function excluirCategoria () {
 
 function excluirProduto () {
 
-    var id = document.getElementById('idProdutoExcluir').value.toString()
+    var id = document.getElementById('inputListaPExluir').value.toString()
     var url = `http://loja.buiar.com/?key=8t4b2j&c=produto&t=remover&id=${id}&f=json`
 
     criarRequest(url, 'excluirProduto')
@@ -144,7 +158,7 @@ function excluirProduto () {
 
 function alterarCategoria () {
     
-    var id = document.getElementById('idCategoriaAlterar').value.toString()
+    var id = document.getElementById('inputListaCAlterar').value.toString()
     var nome = document.getElementById('nomeCategoriaAlterar').value.toString()
     var url = `http://loja.buiar.com/?key=8t4b2j&c=categoria&t=alterar&id=${id}&nome=${nome}&f=json`
 
@@ -156,24 +170,23 @@ function alterarCategoria () {
 
 function alterarProduto () {
 
-    var id = document.getElementById('idProdutoAlterar').value.toString()
+    var id = document.getElementById('inputListaProdAlterar').value.toString()
     var nome = document.getElementById('nomeProdutoAlterar').value.toString()
     var codigo = document.getElementById('codigoProdutoAlterar').value.toString()
     var descricao = document.getElementById('descricaoProdutoAlterar').value.toString()
     var preco = document.getElementById('precoProdutoAlterar').value.toString()
     var imagem = document.getElementById('imagemProdutoAlterar').value.toString()
     var peso = document.getElementById('pesoProdutoAlterar').value.toString()
-    var idCategoria = document.getElementById('inputListaAlterar').value.toString()
+    var idCategoria = document.getElementById('inputListaCPAlterar').value.toString()
 
-    preco = converterEntradaNumerica(preco)
-    peso = converterEntradaNumerica(peso)
-
+    preco = formatarNumeroDotsemMilhar(preco)
+    peso = formatarNumeroDotsemMilhar(peso)
+    
     var url = `http://loja.buiar.com/?key=8t4b2j&c=produto&t=alterar&id=${id}&nome=${nome}&codigo=${codigo}&descricao=${descricao}&preco=${preco}&imagem=${imagem}&peso=${peso}&categoria=${idCategoria}&f=json`
-
+    
     criarRequest(url, 'alterarProduto', -1)
     limparCampos()
     listarProdutos()
-
 }
 
 function criarRequest (url, nome) {
@@ -213,26 +226,61 @@ function criarRequest (url, nome) {
 
 }
 
+function formatarNumerorDot(value) {
+    value = convertToFloatNumber(value);
+    return value.formatMoney(2, ',', '.');
+}
+
+function formatarNumeroVirg(value) {
+    value = convertToFloatNumber(value);
+    return value.formatMoney(2, ',', '.');
+}
+
+function formatarNumeroDotsemMilhar(value) {
+    value = convertToFloatNumber(value);
+    return value.formatMoney(2, '.', '');
+}
+
+var convertToFloatNumber = function(value) {
+    value = value.toString();
+     if (value.indexOf('.') !== -1 && value.indexOf(',') !== -1) {
+         if (value.indexOf('.') <  value.indexOf(',')) {
+            //inglês
+            return parseFloat(value.replace(/,/gi,''));
+         } else {
+           //português
+           return parseFloat(value.replace(/\./gi,'').replace(/,/gi,'.'));
+         }      
+     } else {
+        return parseFloat(value);
+     }
+  }
+
+  Number.prototype.formatMoney = function (c, d, t) {
+    var n = this,
+        c = isNaN(c = Math.abs(c)) ? 2 : c,
+        d = d == undefined ? "." : d,
+        t = t == undefined ? "," : t,
+        s = n < 0 ? "-" : "",
+        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+        j = (j = i.length) > 3 ? j % 3 : 0;
+    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+};
+
 function formatarLocalizado(valor, monetario) {
 
     valor = Number(valor)
     opcoes = {
-
-        minimumFractionDigits: 2
+        minimumFractionDigits: 3
     }
 
     if (monetario) {
-
         opcoes = {
-
             style: "currency",
             currency: "BRL",
-
         }
     }
-
     return ((valor).toLocaleString("pt-BR", opcoes))
-
 }
 
 function formatarPeso(valor) {
@@ -387,13 +435,50 @@ function gerarTabela (response, tipo) {
 
 }
 
-function listarItensPedido (element) {
+function criarRequestPedido () {
 
-    console.log(element.innerText)
-    var url = `http://loja.buiar.com/?key=8t4b2j&c=item&t=listar&f=json&pedido=${element.innerText}`
+    let id = document.getElementById('idPedido').value
+    var url = `http://loja.buiar.com/?key=8t4b2j&c=item&t=listar&f=json&pedido=${id}`
+    var request = new XMLHttpRequest()
 
-    criarRequest(url, 'listarItensPedido')
+    request.open('POST', url)
+    request.responseType = 'json'
+    request.onreadystatechange = function () {
+        if (request.readyState === XMLHttpRequest.DONE) {
+            listarItensPedido(request.response)
+        }
+    }
+    request.send()
+}
 
+function listarItensPedido (response) {
+
+    limparPedidos()
+    let dados = response.dados
+    let total = 0
+
+    let items = `
+    <tr>
+        <th>Imagem</th>
+        <th>Nome</th>
+        <th>Preço</th>
+        <th>Quantidade</th>
+    </tr>`
+
+    for (let i = 0; i < dados.length; i++) {
+        let prod = produtos[dados[i].produto]
+        total += parseFloat(prod.preco* dados[i].qtd)
+
+        items += `
+        <tr id="modeloItem">
+            <td name="iconeItem"><img height="25px" src="${prod.imagem}"></td>
+            <td name="nomeItem">${prod.nome}</td>
+            <td name="precoItem">R$${Number(prod.preco).toFixed(2)}</td>
+            <td name="quantidadeItem">${dados[i].qtd}</td>
+        </tr>`
+    }
+    items += `<tr><td colspan="4" style="text-align: center">Total: R$${Number(total).toFixed(2)}</td></tr>`
+    document.getElementById("tabelaPedido").innerHTML = items
 }
 
 function limparPedidos(){
@@ -429,20 +514,120 @@ function carregarListaCategorias () {
 
     let listaCp = document.getElementById('listaCategoriasProdutos')
     let listaCpAlterar = document.getElementById('listaCategoriasProdutosAlterar')
+    let listaAlterar = document.getElementById('listaCategoriasAlterar')
+    let listaExcluir = document.getElementById('listaCategoriasExcluir')
     let dados = requestCategorias.response.dados
 
     for (let i = 0; i < dados.length; i++) {
 
         let option = document.createElement('option')
-        let optionAlterar = document.createElement('option')
+        let option1 = document.createElement('option')
+        let option2 = document.createElement('option')
+        let option3 = document.createElement('option')
 
         option.innerText = dados[i].nome
-        option.setAttribute('value', dados[i].id)
-        optionAlterar.innerText = dados[i].nome
-        optionAlterar.setAttribute('value', dados[i].id)
+        option.value = dados[i].id
+        option1.innerText = dados[i].nome
+        option1.value = dados[i].id
+        option2.innerText = dados[i].nome
+        option2.value = dados[i].id
+        option3.innerText = dados[i].nome
+        option3.value = dados[i].id
         listaCp.appendChild(option)
-        listaCpAlterar.appendChild(optionAlterar)
-
+        listaCpAlterar.appendChild(option1)
+        listaAlterar.appendChild(option2)
+        listaExcluir.appendChild(option3)
     }
+}
 
+function carregarProdutos(){
+    let lista1 = document.getElementById('listaProdutosExcluir')
+    let lista2 = document.getElementById('listaProdutosAlterar')
+
+    let dados = requestProduto.response.dados
+
+    for (let i = 0; i < dados.length; i++) {
+
+        let option1 = document.createElement('option')
+        let option2 = document.createElement('option')
+
+        option1.innerText = dados[i].nome
+        option1.value = dados[i].id
+        option2.innerText = dados[i].nome
+        option2.value = dados[i].id
+        lista1.appendChild(option1)
+        lista2.appendChild(option2)
+        produtos[dados[i].id] = dados[i]
+    }
+    console.log(produtos)
+}
+
+function preencheNome(){
+    let id = document.getElementById('inputListaProdAlterar')
+    console.log(id.value)
+    if(id.value)
+    {
+        let nome = document.getElementById('nomeProdutoAlterar')
+        let codigo = document.getElementById('codigoProdutoAlterar')
+        let descricao = document.getElementById('descricaoProdutoAlterar')
+        let preco = document.getElementById('precoProdutoAlterar')
+        let imagem = document.getElementById('imagemProdutoAlterar')
+        let peso = document.getElementById('pesoProdutoAlterar')
+        let categoria = document.getElementById('inputListaCPAlterar')
+    
+        nome.value = produtos[id.value].nome
+        codigo.value = produtos[id.value].codigo
+        descricao.value = produtos[id.value].descricao
+        preco.value = produtos[id.value].preco
+        imagem.value = produtos[id.value].imagem
+        peso.value = produtos[id.value].peso
+        categoria.value = produtos[id.value].categoria
+        console.log(produtos[id.value].nome)
+    }
+}
+
+function selecionarPagina(opcao){
+    document.getElementById('paginaListarCategorias').style.display = 'none'
+    document.getElementById('paginaIncluirCategoria').style.display = 'none'
+    document.getElementById('paginaExcluirCategoria').style.display = 'none'
+    document.getElementById('paginaAlterarCategoria').style.display = 'none'
+    document.getElementById('paginaListarProdutos').style.display = 'none'
+    document.getElementById('paginaInserirProduto').style.display = 'none'
+    document.getElementById('paginaExcluirProduto').style.display = 'none'
+    document.getElementById('paginaAlterarProduto').style.display = 'none'
+    document.getElementById('paginaListarPedidos').style.display = 'none'
+    document.getElementById('paginaDetalhePedidos').style.display = 'none'
+    if(opcao == 'listCat'){
+        document.getElementById('paginaListarCategorias').style.display = 'block'
+    }
+    else if(opcao == 'incluCat'){
+        document.getElementById('paginaIncluirCategoria').style.display = 'block'
+    }
+    else if(opcao == 'excluCat'){
+        document.getElementById('paginaExcluirCategoria').style.display = 'block'
+    }
+    else if(opcao == 'altCat'){
+        document.getElementById('paginaAlterarCategoria').style.display = 'block'
+    }
+    else if(opcao == 'listProd'){
+        document.getElementById('paginaListarProdutos').style.display = 'block'
+    }
+    else if(opcao == 'incluProd'){
+        document.getElementById('paginaInserirProduto').style.display = 'block'
+    }
+    else if(opcao == 'excluProd'){
+        document.getElementById('paginaExcluirProduto').style.display = 'block'
+    }
+    else if(opcao == 'altProd'){
+        document.getElementById('paginaAlterarProduto').style.display = 'block'
+    }
+    else if(opcao == 'listPed'){
+        document.getElementById('paginaListarPedidos').style.display = 'block'
+    }
+    else if(opcao == 'listItens'){
+        document.getElementById('paginaDetalhePedidos').style.display = 'block'
+    }
+    else{
+        console.log(opcao)
+    }
 }

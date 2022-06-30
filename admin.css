@@ -145,16 +145,16 @@ a:hover.menu {
 
 #menuProdutos {
 
-    float: right;
-    width: 50%;
+    left: 50%;
+    width: 100%;
     height: 100%;
 
 }
 
 #menuCategorias {
 
-    float: left;
-    width: 50%;
+    left: 50%;
+    width: 100%;
     height: 100%;
 
 }
@@ -186,16 +186,19 @@ a:hover.menu {
     position: static;
     margin-left: auto;
     margin-right: auto;
-    display: flex;
+    width: 30%;
+    margin-bottom: 1vh;
 
 }
 
-.inputCategorias, .inputProdutos {
+.inputCategorias, .inputProdutos, .inputPedidos {
 
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    display: flex;
+    width: 30%;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
 
 }
 
@@ -204,7 +207,35 @@ a:hover.menu {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    display: flex;
-
 }
-  
+
+.botaoNavAdmin{
+    width: 9vw;
+    height: 5vh;
+    margin: 0 0 0 0;
+    text-align: center;
+    padding: 0;
+}
+
+
+nav#Admin{
+    min-width: 100vw;
+    min-height: 10vh;
+    margin-top: 2.5vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+.pagina{
+    display: none;
+    text-align: center;
+}
+
+#tabelaPedido{
+    text-align: center;
+    border-color: #777373;
+    background-color: #272424;
+    border-width: 1vmin;
+    border-radius: 5px;
+    width: fit-content;
+}

@@ -29,11 +29,11 @@
             <div>
                 <div class="form">
                 <label for="name">Nome</label>
-                <input type="text" id="name" name="name" placeholder="Informe seu nome">
+                <input type="text" id="name" name="name" placeholder="Informe seu nome" required>
                 <label for="cpf">CPF</label>
-                <input type="text" name="cpf" id="cpf" placeholder="12345678910" maxlength=11 required><br>
+                <input type="text" name="cpf" id="cpf" placeholder="12345678910" pattern="[0-9]{11}" maxlength=11 required><br>
                 <label for="cep">CEP</label>
-                <input type='text' id='cep' onChange='buscarCep()' placeholder='12345678' maxlength=8>
+                <input type='text' id='cep' onChange='buscarCep()' placeholder='12345678' pattern="[0-9]{8}" maxlength=8 required>
                 <label for="logradouro">Logradouro</label>
                 <input type="text" id="logradouro" name="logradouro" placeholder="informe o logradouro">
                 <label for="bairro">Bairro</label>
@@ -43,11 +43,11 @@
                 <label for="uf">UF</label>
                 <input type="text" id="uf" name="uf" placeholder="Informe a UF">
                 <label for="numero">Número</label>
-                <input type="text" id="numero" name="numero" placeholder="Informe o número">
+                <input type="text" id="numero" name="numero" placeholder="Informe o número" required>
                 <label for="complemento">Complemento</label>
                 <input type="text" id="complemento" name="complemento" placeholder="Informe o complemento">
                 <br>
-                <button class="submit" onclick="abrirConfirmacaoPedido()">Finalizar</button>
+                <button class="submit" onclick="abrirConfirmacaoPedido()" id="sumbitPedido">Finalizar</button>
                 </div>
             </div>
         </div>
@@ -88,10 +88,14 @@
         <div class="divProdutos" id="divProdutos"></div>
     </div>
         <div id="fimPedido" style="display: none">
-            <a href="" class="linkBoleto">Boleto</a>
+            <a href="" id="linkBoleto" class="linkBoleto">Boleto</a>
         </div>
         
-        <div id="confirmacaoDados" style="display: none;"></div>
+        <div id="confirmacaoDados" style="display: none;">
+            <table id="tabelaConfirmacao">
+
+            </table>
+        </div>
 
         <br><br><br>
 
